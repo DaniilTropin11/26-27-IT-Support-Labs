@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Жизненный цикл ИС: Фундаментальная теория и современные стандарты 2026</title>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    
+    html {
+      font-size: 19px; /* Увеличенный базовый размер для проектора и доски */
+    }
+
+    /* Дополнительная четкость текста на доске */
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .slide {
+      padding: 36px 54px;
+    }
+
+    :root {
+      --bg-main: #0a0e1a;
+      --bg-surface: #111827;
+      --bg-card: rgba(19, 27, 46, 0.85);
+      --bg-glass: rgba(26, 38, 66, 0.6);
+      --border: rgba(56, 189, 248, 0.2);
+      --border-glow: rgba(56, 189, 248, 0.5);
+      
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --purple: #a855f7;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --indigo: #6366f1;
+      --teal: #14b8a6;
+      
+      --text-1: #f8fafc;
+      --text-2: #94a3b8;
+      --text-3: #64748b;
+      
+      --grad-cyan-indigo: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+      --grad-emerald-cyan: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      --grad-rose-purple: linear-gradient(135deg, #f43f5e 0%, #a855f7 100%);
+      --grad-amber-orange: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-1);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    /* Top Bar */
+    header {
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 14, 26, 0.88);
+      backdrop-filter: blur(14px);
+      position: relative;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.31rem;
+      letter-spacing: -0.02em;
+    }
+    .brand i {
+      color: var(--cyan);
+      font-size: 1.47rem;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+    }
+    .badge-2026 {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+      font-size: 1.01rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-counter {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.19rem;
+      color: var(--text-2);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+    }
+
+    .btn-nav {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-1);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1.19rem;
+    }
+    .btn-nav:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Slide Deck */
+    main {
+      height: calc(100vh - 62px - 6px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-deck {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateY(12px);
+      padding: 32px 50px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Headers */
+    .slide-header {
+      margin-bottom: 22px;
+      flex-shrink: 0;
+    }
+
+    .slide-category {
+      font-size: 1.09rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--cyan);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      background: linear-gradient(135deg, #ffffff 50%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-2);
+      margin-top: 5px;
+      font-weight: 400;
+    }
+
+    /* Cards & Layouts */
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      position: relative;
+      backdrop-filter: blur(14px);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.01rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .badge-cyan { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-purple { background: rgba(168, 85, 247, 0.15); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-rose { background: rgba(244, 63, 94, 0.15); color: var(--rose); border: 1px solid rgba(244, 63, 94, 0.3); }
+
+    /* Focus Trend Box */
+    .trend-box {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 14px;
+    }
+    .trend-header {
+      font-size: 1.19rem;
+      font-weight: 700;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    /* Diagram visual SVG wraps */
+    .diagram-container {
+      background: rgba(12, 18, 33, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    svg.vector-diag { max-width: 100%; height: auto; }
+
+    /* Progress bar */
+    .progress-track {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      z-index: 1000;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--grad-cyan-indigo);
+      transition: width 0.25s ease;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    }
+
+    /* Comparison Tables */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.16rem;
+      margin-top: 10px;
+    }
+    .styled-table th {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--cyan);
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 700;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    .styled-table td {
+      padding: 11px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: var(--text-2);
+      background: rgba(255, 255, 255, 0.02);
+      line-height: 1.45;
+    }
+    .styled-table tr:hover td {
+      background: rgba(56, 189, 248, 0.04);
+      color: #fff;
+    }
+
+    /* List styling */
+    ul.bullet-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 8px;
+      font-size: 1.16rem;
+      line-height: 1.5;
+      color: var(--text-2);
+    }
+    ul.bullet-list li strong { color: var(--text-1); }
+    ul.bullet-list li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--cyan);
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    /* Quick quiz options */
+    .quiz-opt {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-size: 1.22rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+    .quiz-opt:hover {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: var(--cyan);
+    }
+    .quiz-opt.correct {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: var(--emerald) !important;
+      color: #fff !important;
+    }
+    .quiz-opt.wrong {
+      background: rgba(244, 63, 94, 0.2) !important;
+      border-color: var(--rose) !important;
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <i class="fa-solid fa-layer-group"></i>
+      <span>Инженерно-техническая поддержка ИС</span>
+      
+    </div>
+
+    <div class="nav-controls">
+      <span style="font-family: 'Fira Code', monospace; font-size: 1.01rem; color: var(--text-3);"><i class="fa-solid fa-keyboard"></i> Слайды: ← → или Пробел</span>
+      <button class="btn-nav" id="prevBtn" title="Назад"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="slide-counter" id="slideCounter">01 / 22</div>
+      <button class="btn-nav" id="nextBtn" title="Вперед"><i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-nav" id="fsBtn" title="Полный экран"><i class="fa-solid fa-expand"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <div class="slide-deck" id="slideDeck">
+
+      <!-- SLIDE 1: ТИТУЛЬНЫЙ ЛИСТ -->
+      <section class="slide active">
+        <div style="max-width: 950px; margin: auto; text-align: center;">
+          <div class="slide-category" style="justify-content: center;">
+            </div>
+          <h1 class="slide-title" style="font-size: 3.3rem; margin: 16px 0 20px 0;">
+            Жизненный Цикл ИС:<br>
+            <span style="background: var(--grad-cyan-indigo); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Понятие, Этапы, Модели и Аппарат ТСП</span>
+          </h1>
+          <p class="slide-subtitle" style="font-size: 1.39rem; max-width: 780px; margin: 0 auto 34px auto; line-height: 1.6;">
+            Лекция №2 Академическая школа (Хотышев, Дрогобыцкий, Смирнова, ГОСТ 34.601-90) в синтезе с современными методологиями ISO/IEC/IEEE 12207:2026 и практикой DevSecOps.
+          </p>
+
+          <div class="grid-3" style="text-align: left; margin-bottom: 30px;">
+            <div class="glass-card">
+              <span class="badge badge-cyan" style="margin-bottom: 10px;">Блок 1</span>
+              <h3 style="font-size: 1.31rem; margin-bottom: 6px;">Понятие и Стадии ЖЦ</h3>
+              <p style="font-size: 1.12rem; color: var(--text-2);">Предпроектный анализ, системный синтез (ФА и СА), ввод в действие, сопровождение и вывод из эксплуатации.</p>
+            </div>
+            <div class="glass-card">
+              <span class="badge badge-purple" style="margin-bottom: 10px;">Блок 2</span>
+              <h3 style="font-size: 1.31rem; margin-bottom: 6px;">Модели ЖЦ ИС</h3>
+              <p style="font-size: 1.12rem; color: var(--text-2);">Каскад, итерационная модель с обратной связью, спираль (RAD), а также стандарты ГОСТ 34 vs ISO 12207.</p>
+            </div>
+            <div class="glass-card">
+              <span class="badge badge-emerald" style="margin-bottom: 10px;">Блок 3</span>
+              <h3 style="font-size: 1.31rem; margin-bottom: 6px;">Формализация и ТСП</h3>
+              <p style="font-size: 1.12rem; color: var(--text-2);">Технологические сети проектирования: компоненты ТО [D, P, G, U, П, R, S], сквозной кейс Cloud-ERP и квиз.</p>
+            </div>
+          </div>
+
+          <button class="btn-nav" style="width: auto; height: auto; padding: 12px 30px; font-weight: 700; font-size: 1.19rem; background: var(--grad-cyan-indigo); border: none; border-radius: 10px; color: #fff; margin: 0 auto; display: inline-flex; gap: 10px;" onclick="goToSlide(1)">
+            Открыть план лекции <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: ЦЕЛИ И ПЛАН ЛЕКЦИИ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-list-check"></i> Структура занятия</div>
+          <h2 class="slide-title">План лекции </h2>
+          <p class="slide-subtitle">Цель: изучить стадии ЖЦ ИС, модели организации процессов и научный аппарат ТСП</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <h3 style="font-size: 1.38rem; color: var(--cyan); margin-bottom: 14px;"><i class="fa-solid fa-clock"></i> Тайм-план занятия:</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 1.19rem;">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+                <span> Блок 1. Понятие ЖЦ, стадии, анализ vs синтез</span>
+                <span class="badge badge-cyan">Слайды 3–9</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+                <span> Блок 2. Модели ЖЦ (Каскад, Итерации, Спираль, ГОСТ/ISO)</span>
+                <span class="badge badge-purple">Слайды 10–14</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+                <span> Блок 3. Формализация технологии и аппарат ТСП</span>
+                <span class="badge badge-emerald">Слайды 15–18</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+                <span> Блок 4. Сквозной кейс проектирования Cloud-ERP</span>
+                <span class="badge badge-amber">Слайды 19–20</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span> Блок 5. Интерактивный экспресс-квиз и Q&amp;A</span>
+                <span class="badge badge-rose">Слайды 21–22</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="font-size: 1.38rem; color: var(--purple); margin-bottom: 14px;"><i class="fa-solid fa-book-bookmark"></i> Базовые литературные источники лекции:</h3>
+            <ul class="bullet-list">
+              <li><strong>Смирнова Г.Н., Сорокин А.А., Тельнов Ю.Ф.</strong> Проектирование экономических информационных систем: учебник. — М.: Финансы и статистика.</li>
+              <li><strong>Гвоздева Т.В., Баллод Б.А.</strong> Проектирование информационных систем. — Ростов-на-Дону: Феникс.</li>
+              <li><strong>Грекул В.И., Денищенко Г.Н., Коровкина Н.Л.</strong> Проектирование ИС: учеб. пособие.</li>
+              <li><strong>Хотышев Э.Н., Дрогобыцкий И.Н.</strong> Аппарат технологических сетей проектирования ИС.</li>
+              <li><strong>ГОСТ 34.601-90 / ISO/IEC/IEEE 12207:2026</strong> «Процессы жизненного цикла программных систем».</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: БАЗОВОЕ ОПРЕДЕЛЕНИЕ ЖЦ ИС -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-cube"></i> Блок 1. Понятие и стадии ЖЦ</div>
+          <h2 class="slide-title">Что такое жизненный цикл ИС?</h2>
+          <p class="slide-subtitle">Сущность поэтапного инженерного подхода к проектированию сложных систем</p>
+        </div>
+
+        <div class="glass-card" style="border-left: 4px solid var(--cyan); margin-bottom: 22px;">
+          <p style="font-size: 1.36rem; line-height: 1.6; color: #fff;">
+            <strong>Жизненный цикл информационной системы (ЖЦ ИС)</strong> — это совокупность стадий и этапов, которые проходит система в своем развитии от момента принятия решения о создании системы до момента полного прекращения её функционирования и вывода из эксплуатации.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="glass-card">
+            <div style="color: var(--cyan); font-size: 1.84rem; margin-bottom: 10px;"><i class="fa-solid fa-stairs"></i></div>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">Поэтапность разработки</h4>
+            <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5;">
+              Любая ИС обладает высокой структурной сложностью. Разбить процесс на этапы — единственный способ гарантировать управляемость ресурсами, сроками и качеством проекта.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <div style="color: var(--purple); font-size: 1.84rem; margin-bottom: 10px;"><i class="fa-solid fa-object-group"></i></div>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">Объединение в стадии</h4>
+            <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5;">
+              Этапы группируются в укрупненные <strong>стадии</strong> по общности целей и получаемых итоговых проектных артефактов (ТЗ, Технический проект, Рабочий проект, Акт приемки).
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <div style="color: var(--emerald); font-size: 1.84rem; margin-bottom: 10px;"><i class="fa-solid fa-recycle"></i></div>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">Непрерывность ЖЦ (2026)</h4>
+            <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5;">
+              В современной инженерной практике ЖЦ не прекращается после релиза: система постоянно эволюционирует, адаптируясь под законодательство, нагрузку и протоколы безопасности.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: ОБЗОР 5 КЛАССИЧЕСКИХ СТАДИЙ ЖЦ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-timeline"></i> Блок 1. Понятие и стадии ЖЦ</div>
+          <h2 class="slide-title">Пять основных стадий ЖЦ ИС</h2>
+          <p class="slide-subtitle">Классическая академическая структура жизненного цикла экономической ИС</p>
+        </div>
+
+        <div class="grid-5" style="margin-bottom: 22px;">
+          <!-- Stage 1 -->
+          <div class="glass-card" style="border-top: 3px solid var(--cyan);">
+            <div style="font-family: 'Fira Code'; font-size: 1.38rem; color: var(--cyan); font-weight: 700; margin-bottom: 6px;">01. Анализ</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Планирование и требования</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Исследование объекта, сбор недостатков, обоснование окупаемости (ТЭО) и ТЗ.</p>
+            <span class="badge badge-cyan" style="margin-top: 10px;">Предпроектная</span>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="glass-card" style="border-top: 3px solid var(--purple); background: rgba(168, 85, 247, 0.08);">
+            <div style="font-family: 'Fira Code'; font-size: 1.38rem; color: var(--purple); font-weight: 700; margin-bottom: 6px;">02. Проект</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Логическое проектирование</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Функциональная (ФА) и системная архитектура (СА). Технический проект.</p>
+            <span class="badge badge-purple" style="margin-top: 10px;">Синтез (ФА/СА)</span>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="glass-card" style="border-top: 3px solid var(--purple); background: rgba(168, 85, 247, 0.08);">
+            <div style="font-family: 'Fira Code'; font-size: 1.38rem; color: var(--purple); font-weight: 700; margin-bottom: 6px;">03. Рабочая</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Физическая реализация</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Программирование, наполнение баз данных, написание инструкций персоналу.</p>
+            <span class="badge badge-purple" style="margin-top: 10px;">Синтез (Код/БД)</span>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="glass-card" style="border-top: 3px solid var(--amber);">
+            <div style="font-family: 'Fira Code'; font-size: 1.38rem; color: var(--amber); font-weight: 700; margin-bottom: 6px;">04. Ввод</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Внедрение и отладка</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Опытная эксплуатация, устранение дефектов, приемо-сдаточные испытания.</p>
+            <span class="badge badge-amber" style="margin-top: 10px;">Акт сдачи</span>
+          </div>
+
+          <!-- Stage 5 -->
+          <div class="glass-card" style="border-top: 3px solid var(--emerald);">
+            <div style="font-family: 'Fira Code'; font-size: 1.38rem; color: var(--emerald); font-weight: 700; margin-bottom: 6px;">05. Жизнь</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Эксплуатация ИС</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Сбор рекламаций, исправление багов, техническая поддержка, модернизация.</p>
+            <span class="badge badge-emerald" style="margin-top: 10px;">Модернизация</span>
+          </div>
+        </div>
+
+        <div class="glass-card" style="border: 1px dashed var(--purple); padding: 14px 20px; display: flex; align-items: center; gap: 16px;">
+          <i class="fa-solid fa-diagram-project" style="color: var(--purple); font-size: 2.07rem;"></i>
+          <div style="font-size: 1.19rem; color: var(--text-2);">
+            <strong style="color: #fff;">Методологическая связка:</strong> В отечественной инженерной школе второй (Проектирование) и третий (Реализация) этапы принято объединять в макростадию <strong>«Техно-рабочее проектирование»</strong>, или <strong>«Системный синтез»</strong>.
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: СТАДИЯ 1 - СИСТЕМНЫЙ АНАЛИЗ И ПРЕДПРОЕКТНОЕ ОБСЛЕДОВАНИЕ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-magnifying-glass"></i> Блок 1. Детализация стадий</div>
+          <h2 class="slide-title">Стадия 1: Предпроектное обследование и системный анализ</h2>
+          <p class="slide-subtitle">Как формулируется необходимость создания новой информационной системы</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <h3 style="font-size: 1.31rem; color: var(--cyan); margin-bottom: 12px;"><i class="fa-solid fa-bullseye"></i> Ключевые цели системного анализа:</h3>
+            <ul class="bullet-list">
+              <li><strong>Идентификация недостатков существующей ИС:</strong> детальное описание и аудит функционирования экономического объекта «как есть» (As-Is).</li>
+              <li><strong>Обоснование необходимости:</strong> выявление неэффективных ручных операций, дублирования данных и финансовых потерь от задержек.</li>
+              <li><strong>Выбор направлений автоматизации:</strong> определение того, какие именно подразделения и бизнес-процессы нуждаются в цифровизации в первую очередь.</li>
+              <li><strong>Оценка экономической целесообразности:</strong> разработка <strong>ТЭО (Технико-экономического обоснования)</strong> с расчетом сроков окупаемости инвестиций (ROI).</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="font-size: 1.31rem; color: var(--purple); margin-bottom: 12px;"><i class="fa-solid fa-file-signature"></i> Выходной артефакт: Техническое задание (ТЗ)</h3>
+            <p style="font-size: 1.15rem; color: var(--text-2); margin-bottom: 12px; line-height: 1.5;">
+              ТЗ — основополагающий юридический и технический документ. Требования к ИС формулируются строго в двух плоскостях:
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+              <strong style="color: var(--cyan); font-size: 1.15rem;">1. Функциональные требования:</strong>
+              <p style="font-size: 1.12rem; color: var(--text-2); margin-top: 4px;">Перечень автоматизируемых функций, состав входных/выходных экранных форм и отчетов.</p>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px;">
+              <strong style="color: var(--purple); font-size: 1.15rem;">2. Ресурсные и технические ограничения:</strong>
+              <p style="font-size: 1.12rem; color: var(--text-2); margin-top: 4px;">Бюджет, предельные сроки внедрения, требования к быстродействию, ОС и защите информации.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="trend-box">
+          <div class="trend-header"><i class="fa-solid fa-robot"></i> Инструментарий системного анализа в 2026 году:</div>
+          <p style="font-size: 1.12rem; color: var(--text-2); line-height: 1.45;">
+            Вместо многомесячных ручных интервью используются технологии <strong>Process Mining</strong> (восстановление реального процесса по системным логам ERP/CRM) и AI-инструменты семантического анализа нормативной документации для формирования требований без коллизий.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: СТАДИЯ 2 - СИСТЕМНЫЙ СИНТЕЗ: ФА И СА -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-sitemap"></i> Блок 1. Детализация стадий</div>
+          <h2 class="slide-title">Стадия 2: Системный синтез — Архитектуры ФА и СА</h2>
+          <p class="slide-subtitle">Трансформация требований аналитиков в строгие архитектурные структуры</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- ФА -->
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h3 style="font-size: 1.36rem; color: #fff;">Функциональная Архитектура (ФА)</h3>
+              <span class="badge badge-cyan">Бизнес-логика</span>
+            </div>
+            <p style="font-size: 1.15rem; color: var(--text-2); margin-bottom: 14px; line-height: 1.5;">
+              Отражает <strong>декомпозицию выполняемых системой функций</strong> независимо от конкретных языков программирования и серверного оборудования.
+            </p>
+            <ul class="bullet-list">
+              <li>Иерархическая структура задач (дерево функций ИС).</li>
+              <li>Сценарии взаимодействия пользователей с системой (Use Cases).</li>
+              <li>Входные и выходные потоки информации между процессами.</li>
+              <li>Формализация правил и алгоритмов обработки транзакций.</li>
+            </ul>
+          </div>
+
+          <!-- СА -->
+          <div class="glass-card" style="border-top: 4px solid var(--purple);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h3 style="font-size: 1.36rem; color: #fff;">Системная Архитектура (СА)</h3>
+              <span class="badge badge-purple">Инфраструктура</span>
+            </div>
+            <p style="font-size: 1.15rem; color: var(--text-2); margin-bottom: 14px; line-height: 1.5;">
+              Определяет <strong>состав и структуру обеспечивающих подсистем</strong>, реализующих функциональные задачи на практике.
+            </p>
+            <ul class="bullet-list">
+              <li><strong>ИО (Информационное обеспечение):</strong> реляционные/документные модели данных, схемы БД.</li>
+              <li><strong>ТО (Техническое обеспечение):</strong> сервера, каналы связи, балансировщики.</li>
+              <li><strong>ПО (Программное обеспечение):</strong> операционные системы, СУБД, фреймворки.</li>
+              <li><strong>МО и ОО:</strong> математические модели и организационные регламенты.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 18px; padding: 14px 20px;">
+          <p style="font-size: 1.16rem; color: #fff;">
+            <i class="fa-solid fa-arrow-right-arrow-left" style="color: var(--cyan); margin-right: 8px;"></i>
+            <strong>Принцип построения СА на основе ФА:</strong> Сначала фиксируется ЧТО система должна делать (ФА), и лишь затем определяется С ПОМОЩЬЮ КАКИХ технических и программных модулей это будет выполнено (СА).
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: СТАДИЯ 3 - РЕАЛИЗАЦИЯ И РАБОЧЕЕ ПРОЕКТИРОВАНИЕ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-code"></i> Блок 1. Детализация стадий</div>
+          <h2 class="slide-title">Стадия 3: Реализация (Рабочее проектирование)</h2>
+          <p class="slide-subtitle">Создание программного кода, подготовка информационного базиса и инструкций</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="glass-card">
+            <div style="color: var(--cyan); font-size: 2.07rem; margin-bottom: 12px;"><i class="fa-solid fa-laptop-code"></i></div>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">1. Программирование и настройка</h4>
+            <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.5;">
+              Непосредственное написание исходного кода компонентов, интеграция сторонних модулей и библиотек, конфигурация бизнес-логики и настройка API-шлюзов.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <div style="color: var(--purple); font-size: 2.07rem; margin-bottom: 12px;"><i class="fa-solid fa-database"></i></div>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">2. Создание и наполнение баз данных</h4>
+            <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.5;">
+              Физическое развертывание схемы данных (DDL), наполнение классификаторов, справочников, начальных остатков и миграция исторических данных из старых учетных систем.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <div style="color: var(--emerald); font-size: 2.07rem; margin-bottom: 12px;"><i class="fa-solid fa-book-open-reader"></i></div>
+            <h4 style="font-size: 1.25rem; margin-bottom: 8px;">3. Документирование и инструкции</h4>
+            <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.5;">
+              Оформление полного комплекта рабочего проекта: руководства системного администратора, технологические инструкции для конечных пользователей, регламенты резервного копирования.
+            </p>
+          </div>
+        </div>
+
+        <div class="trend-box">
+          <div class="trend-header"><i class="fa-solid fa-wand-magic-sparkles"></i> Реализация в парадигме 2026 года:</div>
+          <p style="font-size: 1.12rem; color: var(--text-2); line-height: 1.45;">
+            Широкое внедрение <strong>AI-ассистентов разработчика</strong> (автоматическая генерация юнит-тестов, бойлерплейт-кода, документации OpenAPI/Swagger), использование декларативных сред инфраструктуры (IaC — Terraform/Ansible) и контейнеризации в микросервисах.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: СТАДИЯ 4 - ВНЕДРЕНИЕ И ПРИЕМОЧНЫЕ ИСПЫТАНИЯ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-vial-circle-check"></i> Блок 1. Детализация стадий</div>
+          <h2 class="slide-title">Стадия 4: Внедрение и приемо-сдаточные испытания</h2>
+          <p class="slide-subtitle">Разделение опытного и промышленного внедрения по академической программе</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- Опытное внедрение -->
+          <div class="glass-card" style="border-left: 4px solid var(--amber);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h3 style="font-size: 1.38rem; color: #fff;">1. Опытное внедрение</h3>
+              <span class="badge badge-amber">Тестирование модулей</span>
+            </div>
+            <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5; margin-bottom: 10px;">
+              <strong>Главная цель:</strong> проверка работоспособности элементов и модулей проекта, устранение ошибок на уровне межмодульных связей.
+            </p>
+            <ul class="bullet-list">
+              <li>Комплексная отладка в тестовом стенде.</li>
+              <li>Проверка работы подсистем под нагрузкой.</li>
+              <li>Первичное обучение фокус-группы сотрудников.</li>
+              <li>Выявление скрытых ошибок в расчетных формулах.</li>
+            </ul>
+          </div>
+
+          <!-- Промышленная эксплуатация -->
+          <div class="glass-card" style="border-left: 4px solid var(--emerald);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h3 style="font-size: 1.38rem; color: #fff;">2. Сдача в промышленный ввод</h3>
+              <span class="badge badge-emerald">Приемочные испытания</span>
+            </div>
+            <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5; margin-bottom: 10px;">
+              <strong>Главная цель:</strong> комплексный контроль соответствия разработанной ИС исходным требованиям Технического задания (ТЗ).
+            </p>
+            <ul class="bullet-list">
+              <li>Поэтапный запуск по филиалам и подразделениям.</li>
+              <li>Проведение официальных приемо-сдаточных испытаний.</li>
+              <li>Аттестация безопасности (при необходимости по требованиям ФСТЭК).</li>
+              <li><strong>Подписание двустороннего Акта приемки-сдачи ИС.</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 18px; padding: 14px 20px;">
+          <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5;">
+            <strong style="color: #fff;">Современный взгляд 2026:</strong> Понятие «опытного внедрения» трансформировалось в концепцию канареечных релизов (Canary Deployments) и Feature Flags: новые версии активируются сначала для 5% реальных пользователей, и при отсутствии сбоев трафик плавно повышается до 100%.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: СТАДИЯ 5 - ЭКСПЛУАТАЦИЯ И МОДЕРНИЗАЦИЯ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-headset"></i> Блок 1. Детализация стадий</div>
+          <h2 class="slide-title">Стадия 5: Эксплуатация, сопровождение и модернизация</h2>
+          <p class="slide-subtitle">Самый продолжительный и финансово емкий этап жизненного цикла ИС</p>
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 20px;">
+          <div class="glass-card">
+            <div style="color: var(--cyan); font-size: 1.77rem; margin-bottom: 10px;"><i class="fa-solid fa-comments"></i></div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Сбор рекламаций</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Регистрация инцидентов через Service Desk, учет жалоб пользователей на нестабильность.</p>
+          </div>
+
+          <div class="glass-card">
+            <div style="color: var(--purple); font-size: 1.77rem; margin-bottom: 10px;"><i class="fa-solid fa-chart-line"></i></div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Сбор статистики</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Замеры задержек базы данных (latency), времени отклика API, нагрузки на память и CPU.</p>
+          </div>
+
+          <div class="glass-card">
+            <div style="color: var(--amber); font-size: 1.77rem; margin-bottom: 10px;"><i class="fa-solid fa-bug-slash"></i></div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Исправление багов</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Локализация узких мест, выпуск патчей безопасности и хотфиксов без остановки бизнес-процессов.</p>
+          </div>
+
+          <div class="glass-card">
+            <div style="color: var(--emerald); font-size: 1.77rem; margin-bottom: 10px;"><i class="fa-solid fa-arrows-spin"></i></div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Модернизация ИС</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.4;">Оформление новых требований к расширению функционала и запуск очередного витка развития.</p>
+          </div>
+        </div>
+
+        <div class="glass-card" style="border-left: 4px solid var(--rose);">
+          <h4 style="font-size: 1.19rem; color: #fff; margin-bottom: 6px;"><i class="fa-solid fa-coins"></i> Экономика сопровождения в IT (Правило 80/20):</h4>
+          <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5;">
+            По статистике программной инженерии, до <strong>70–80% совокупной стоимости владения (TCO)</strong> информационной системы приходится именно на стадию сопровождения и модернизации, а не на первоначальное написание кода. Именно поэтому качественное проектирование СА на начальных этапах определяет живучесть проекта.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: ОБЗОР МОДЕЛЕЙ ЖЦ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-shapes"></i> Блок 2. Модели ЖЦ ИС</div>
+          <h2 class="slide-title">Модели жизненного цикла: историческая эволюция</h2>
+          <p class="slide-subtitle">Как менялась парадигма управления процессами разработки сложных программных систем</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 22px;">
+          <!-- Model 1 -->
+          <div class="glass-card" style="border-top: 4px solid var(--rose);">
+            <div style="font-family: 'Fira Code'; font-size: 1.15rem; color: var(--rose); margin-bottom: 4px;">ДО 1970-х ГОДОВ</div>
+            <h3 style="font-size: 1.42rem; color: #fff; margin-bottom: 8px;">Каскадная модель</h3>
+            <span class="badge badge-rose" style="margin-bottom: 12px;">Waterfall / Водопад</span>
+            <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.5;">
+              Линейная однонаправленная последовательность. Запрет на переход вперед без 100% сдачи предыдущей стадии.
+            </p>
+          </div>
+
+          <!-- Model 2 -->
+          <div class="glass-card" style="border-top: 4px solid var(--amber);">
+            <div style="font-family: 'Fira Code'; font-size: 1.15rem; color: var(--amber); margin-bottom: 4px;">1970–1980-е ГОДЫ</div>
+            <h3 style="font-size: 1.42rem; color: #fff; margin-bottom: 8px;">Итерационная модель</h3>
+            <span class="badge badge-amber" style="margin-bottom: 12px;">Промежуточный контроль</span>
+            <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.5;">
+              Введение циклов обратной связи между смежными этапами. Возможность корректировать проектные решения.
+            </p>
+          </div>
+
+          <!-- Model 3 -->
+          <div class="glass-card" style="border-top: 4px solid var(--emerald);">
+            <div style="font-family: 'Fira Code'; font-size: 1.15rem; color: var(--emerald); margin-bottom: 4px;">1980–1990-е ГОДЫ</div>
+            <h3 style="font-size: 1.42rem; color: #fff; margin-bottom: 8px;">Спиральная модель</h3>
+            <span class="badge badge-emerald" style="margin-bottom: 12px;">RAD / Прототипирование</span>
+            <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.5;">
+              Спираль версий (Версия 1, 2, 3...). Непрерывный анализ рисков и постепенная детализация прототипа в готовый код.
+            </p>
+          </div>
+        </div>
+
+        <div class="glass-card" style="background: rgba(15, 23, 42, 0.7);">
+          <h4 style="font-size: 1.19rem; color: var(--cyan); margin-bottom: 6px;"><i class="fa-solid fa-lightbulb"></i> Что обусловило переход от модели к модели?</h4>
+          <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5;">
+            Постоянный рост сложности экономических задач и турбулентность рынка: если требования заказчика меняются быстрее, чем команда успевает закончить проект, каскадный подход приводит к катастрофе.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: КАСКАДНАЯ МОДЕЛЬ (WATERFALL) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-water"></i> Блок 2. Модели ЖЦ ИС</div>
+          <h2 class="slide-title">Каскадная модель: архитектура, плюсы и фатальный риск</h2>
+          <p class="slide-subtitle">Классический подход: требования → проектирование → реализация → тест → ввод</p>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="diagram-container" style="margin-bottom: 14px;">
+              <svg class="vector-diag" viewBox="0 0 460 250" width="100%">
+                <defs>
+                  <linearGradient id="g-step" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8"></stop>
+                    <stop offset="100%" stop-color="#6366f1"></stop>
+                  </linearGradient>
+                </defs>
+                <rect x="15" y="15" width="120" height="34" rx="6" fill="url(#g-step)"></rect>
+                <text x="75" y="37" fill="#fff" font-size="14.9" font-weight="700" text-anchor="middle">1. Требования</text>
+                <path d="M 75 49 L 75 66 L 95 66" fill="none" stroke="#64748b" stroke-width="2"></path>
+
+                <rect x="95" y="58" width="120" height="34" rx="6" fill="url(#g-step)"></rect>
+                <text x="155" y="80" fill="#fff" font-size="14.9" font-weight="700" text-anchor="middle">2. Проектирование</text>
+                <path d="M 155 92 L 155 109 L 175 109" fill="none" stroke="#64748b" stroke-width="2"></path>
+
+                <rect x="175" y="101" width="120" height="34" rx="6" fill="url(#g-step)"></rect>
+                <text x="235" y="123" fill="#fff" font-size="14.9" font-weight="700" text-anchor="middle">3. Реализация</text>
+                <path d="M 235 135 L 235 152 L 255 152" fill="none" stroke="#64748b" stroke-width="2"></path>
+
+                <rect x="255" y="144" width="120" height="34" rx="6" fill="url(#g-step)"></rect>
+                <text x="315" y="166" fill="#fff" font-size="14.9" font-weight="700" text-anchor="middle">4. Тестирование</text>
+                <path d="M 315 178 L 315 195 L 335 195" fill="none" stroke="#64748b" stroke-width="2"></path>
+
+                <rect x="335" y="187" width="120" height="34" rx="6" fill="url(#g-step)"></rect>
+                <text x="395" y="209" fill="#fff" font-size="14.9" font-weight="700" text-anchor="middle">5. Ввод в строй</text>
+              </svg>
+            </div>
+            <div class="glass-card" style="padding: 12px 16px;">
+              <span style="font-size: 1.12rem; font-weight: 700; color: var(--cyan);"><i class="fa-solid fa-lock"></i> Главный принцип:</span>
+              <p style="font-size: 1.12rem; color: var(--text-2); margin-top: 2px;">
+                Полная фиксация требований на старте. Возврат назад не предусмотрен бюджетом и регламентом.
+              </p>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="font-size: 1.31rem; color: #fff; margin-bottom: 12px;">Анализ модели (по учебным материалам):</h3>
+
+            <div style="margin-bottom: 12px;">
+              <h4 style="font-size: 1.19rem; color: var(--emerald); margin-bottom: 4px;"><i class="fa-solid fa-circle-check"></i> Где каскад эффективен?</h4>
+              <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.45;">
+                Для небольших и несвязанных задач, где требования на 100% понятны, неизменны и не требуют комплексной межсистемной интеграции.
+              </p>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+              <h4 style="font-size: 1.19rem; color: var(--rose); margin-bottom: 4px;"><i class="fa-solid fa-skull-crossbones"></i> Почему каскад опасен для больших ИС?</h4>
+              <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.45;">
+                <em>«Применение к сложным проектам приводит к их <strong>практической нереализуемости</strong>»</em> (Смирнова Г.Н.). Из-за огромной длительности цикла проектирования внешние условия и законодательство меняются быстрее, чем софт сдается заказчику.
+              </p>
+            </div>
+
+            <div class="trend-box" style="margin-top: 8px; padding: 12px 14px;">
+              <span style="font-size: 1.09rem; font-weight: 700; color: var(--cyan);">Ниша в 2026 году:</span>
+              <p style="font-size: 1.06rem; color: var(--text-2); margin-top: 2px;">
+                Жесткие контракты фиксированной цены (Fixed Price) и системы с высочайшими требованиями надежности (авиация, АСУ ТП АЭС).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+            <!-- SLIDE 12: ИТЕРАЦИОННАЯ МОДЕЛЬ (ПРОМЕЖУТОЧНЫЙ КОНТРОЛЬ) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-rotate-left"></i> Блок 2. Модели ЖЦ ИС</div>
+          <h2 class="slide-title">Итерационная модель: архитектура с промежуточным контролем</h2>
+          <p class="slide-subtitle">Циклы обратной связи (1970–80-е гг.), подход «сверху-вниз» и рассогласование документации</p>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="diagram-container" style="margin-bottom: 14px;">
+              <svg class="vector-diag" viewBox="0 0 460 250" width="100%">
+                <defs>
+                  <linearGradient id="g-iter-step" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f59e0b"></stop>
+                    <stop offset="100%" stop-color="#ea580c"></stop>
+                  </linearGradient>
+                  <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"></path>
+                  </marker>
+                </defs>
+                <!-- Steps -->
+                <rect x="15" y="15" width="115" height="32" rx="6" fill="url(#g-iter-step)"></rect>
+                <text x="72" y="36" fill="#fff" font-size="14.2" font-weight="700" text-anchor="middle">1. Требования</text>
+                <path d="M 72 47 L 72 62 L 95 62" fill="none" stroke="#64748b" stroke-width="1.5"></path>
+
+                <rect x="95" y="55" width="115" height="32" rx="6" fill="url(#g-iter-step)"></rect>
+                <text x="152" y="76" fill="#fff" font-size="14.2" font-weight="700" text-anchor="middle">2. Проектирование</text>
+                <path d="M 152 87 L 152 102 L 175 102" fill="none" stroke="#64748b" stroke-width="1.5"></path>
+
+                <rect x="175" y="95" width="115" height="32" rx="6" fill="url(#g-iter-step)"></rect>
+                <text x="232" y="116" fill="#fff" font-size="14.2" font-weight="700" text-anchor="middle">3. Реализация</text>
+                <path d="M 232 127 L 232 142 L 255 142" fill="none" stroke="#64748b" stroke-width="1.5"></path>
+
+                <rect x="255" y="135" width="115" height="32" rx="6" fill="url(#g-iter-step)"></rect>
+                <text x="312" y="156" fill="#fff" font-size="14.2" font-weight="700" text-anchor="middle">4. Тестирование</text>
+                <path d="M 312 167 L 312 182 L 335 182" fill="none" stroke="#64748b" stroke-width="1.5"></path>
+
+                <rect x="335" y="175" width="115" height="32" rx="6" fill="url(#g-iter-step)"></rect>
+                <text x="392" y="196" fill="#fff" font-size="14.2" font-weight="700" text-anchor="middle">5. Ввод в действие</text>
+
+                <!-- Feedback loops / Обратные дуговые стрелки контроля (Рис. 2 лекции) -->
+                <!-- From Design to Req -->
+                <path d="M 110 87 C 100 115, 50 90, 45 52" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="3 3" marker-end="url(#arr-amber)"></path>
+                <!-- From Realization to Req -->
+                <path d="M 190 127 C 150 180, 35 150, 30 52" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="3 3" marker-end="url(#arr-amber)"></path>
+                <!-- From Testing to Req & Design -->
+                <path d="M 270 167 C 210 230, 20 200, 18 52" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="3 3" marker-end="url(#arr-amber)"></path>
+                <!-- From Deploy to Req -->
+                <path d="M 350 207 C 270 255, 10 235, 10 52" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="3 3" marker-end="url(#arr-amber)"></path>
+
+                <text x="210" y="240" fill="#f59e0b" font-size="14" font-weight="600" text-anchor="middle">⮌ Циклы обратной связи (промежуточный контроль)</text>
+              </svg>
+            </div>
+            <div class="glass-card" style="padding: 12px 16px;">
+              <span style="font-size: 1.12rem; font-weight: 700; color: var(--amber);"><i class="fa-solid fa-arrows-spin"></i> Главный принцип:</span>
+              <p style="font-size: 1.12rem; color: var(--text-2); margin-top: 2px;">
+                Поэтапная разработка с межэтапными циклами обратной связи. Результаты последующих этапов вызывают пересмотр решений на предыдущих.
+              </p>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="font-size: 1.31rem; color: #fff; margin-bottom: 12px;">Анализ модели (по учебным материалам):</h3>
+
+            <div style="margin-bottom: 12px;">
+              <h4 style="font-size: 1.19rem; color: var(--amber); margin-bottom: 4px;"><i class="fa-solid fa-layer-group"></i> Необходимость комплексной увязки:</h4>
+              <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.45;">
+                Создание комплексных ИС требует проектирования «сверху-вниз». Когда проектные решения по отдельным задачам комплектуются в общие системные решения, регулярно возникает потребность в пересмотре требований.
+              </p>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+              <h4 style="font-size: 1.19rem; color: var(--rose); margin-bottom: 4px;"><i class="fa-solid fa-triangle-exclamation"></i> Критический недостаток (по лекции):</h4>
+              <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.45;">
+                Время жизни каждого этапа растягивается на весь период разработки. Из-за большого числа итерационных возвратов возникает <strong>хроническое рассогласование между выполненными проектными решениями и документацией</strong>.
+              </p>
+            </div>
+
+            <div class="trend-box" style="margin-top: 8px; padding: 12px 14px;">
+              <span style="font-size: 1.09rem; font-weight: 700; color: var(--cyan);">Статус и уроки в 2026 году:</span>
+              <p style="font-size: 1.06rem; color: var(--text-2); margin-top: 2px;">
+                Модель доказала необходимость гибкости, но подтвердила: без строгой фиксации версий и автоматизированных тестов бесконечные возвраты ведут к хаосу и срыву сроков.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+            <!-- SLIDE 13: СПИРАЛЬНАЯ МОДЕЛЬ И RAD-ТЕХНОЛОГИЯ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-tornado"></i> Блок 2. Модели ЖЦ ИС</div>
+          <h2 class="slide-title">Спиральная модель: архитектура витков и прототипирование (RAD)</h2>
+          <p class="slide-subtitle">Барри Боэм (1980–90-е гг.): непрерывное расширение программных прототипов и анализ рисков</p>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="diagram-container" style="margin-bottom: 14px;">
+              <svg class="vector-diag" viewBox="0 0 460 250" width="100%">
+                <defs>
+                  <linearGradient id="g-spiral-line" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#10b981"></stop>
+                    <stop offset="50%" stop-color="#06b6d4"></stop>
+                    <stop offset="100%" stop-color="#a855f7"></stop>
+                  </linearGradient>
+                  <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"></path>
+                  </marker>
+                </defs>
+                
+                <!-- Cross axes (Quadrants) -->
+                <line x1="230" y1="15" x2="230" y2="235" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" stroke-dasharray="4 4"></line>
+                <line x1="25" y1="125" x2="435" y2="125" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" stroke-dasharray="4 4"></line>
+
+                <!-- Quadrant Labels -->
+                <rect x="250" y="22" width="165" height="24" rx="5" fill="rgba(56, 189, 248, 0.15)" stroke="rgba(56, 189, 248, 0.4)"></rect>
+                <text x="332" y="38" fill="#38bdf8" font-size="13.3" font-weight="700" text-anchor="middle">1. Разработка требований</text>
+
+                <rect x="45" y="22" width="165" height="24" rx="5" fill="rgba(168, 85, 247, 0.15)" stroke="rgba(168, 85, 247, 0.4)"></rect>
+                <text x="127" y="38" fill="#c084fc" font-size="13.3" font-weight="700" text-anchor="middle">2. Проектирование</text>
+
+                <rect x="45" y="204" width="165" height="24" rx="5" fill="rgba(245, 158, 11, 0.15)" stroke="rgba(245, 158, 11, 0.4)"></rect>
+                <text x="127" y="220" fill="#f59e0b" font-size="13.3" font-weight="700" text-anchor="middle">3. Реализация (код)</text>
+
+                <rect x="250" y="204" width="165" height="24" rx="5" fill="rgba(16, 185, 129, 0.15)" stroke="rgba(16, 185, 129, 0.4)"></rect>
+                <text x="332" y="220" fill="#10b981" font-size="13.3" font-weight="700" text-anchor="middle">4. Тест и ввод в действие</text>
+
+                <!-- Spiral Path (Smooth expanding spiral) -->
+                <!-- Center at (230, 125) -->
+                <path d="
+                  M 230 125 
+                  C 230 118, 242 110, 252 110 
+                  C 268 110, 275 120, 275 132 
+                  C 275 148, 255 160, 230 160 
+                  C 195 160, 180 138, 180 115 
+                  C 180 82, 215 65, 255 65 
+                  C 305 65, 335 95, 335 135 
+                  C 335 185, 280 205, 225 205 
+                  C 155 205, 125 155, 125 105 
+                  C 125 45, 185 18, 245 18
+                  " fill="none" stroke="url(#g-spiral-line)" stroke-width="3" stroke-linecap="round" marker-end="url(#arr-emerald)"></path>
+
+                <!-- Version Markers on the Spiral -->
+                <circle cx="260" cy="125" r="4.5" fill="#38bdf8"></circle>
+                <text x="268" y="122" fill="#38bdf8" font-size="11.9" font-family="'Fira Code', monospace" font-weight="700">Версия 1 (MVP)</text>
+
+                <circle cx="230" cy="160" r="4.5" fill="#f59e0b"></circle>
+                <text x="175" y="174" fill="#f59e0b" font-size="11.9" font-family="'Fira Code', monospace" font-weight="700">Версия 2</text>
+
+                <circle cx="335" cy="135" r="4.5" fill="#10b981"></circle>
+                <text x="343" y="140" fill="#10b981" font-size="11.9" font-family="'Fira Code', monospace" font-weight="700">Версия 3</text>
+              </svg>
+            </div>
+            <div class="glass-card" style="padding: 12px 16px;">
+              <span style="font-size: 1.12rem; font-weight: 700; color: var(--emerald);"><i class="fa-solid fa-dna"></i> Главный принцип:</span>
+              <p style="font-size: 1.12rem; color: var(--text-2); margin-top: 2px;">
+                Каждый виток спирали создает действующую версию продукта (прототип). Путь идет от детализации требований к детализации программного кода.
+              </p>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="font-size: 1.31rem; color: #fff; margin-bottom: 12px;">Анализ модели (по учебным материалам):</h3>
+
+            <div style="margin-bottom: 12px;">
+              <h4 style="font-size: 1.19rem; color: var(--emerald); margin-bottom: 4px;"><i class="fa-solid fa-bolt"></i> Преимущества RAD-технологии (по лекции):</h4>
+              <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.45;">
+                При прототипной технологии <strong>сокращается число итераций</strong>, возникает значительно меньше ошибок, проектирование осуществляется <strong>более быстрыми темпами</strong>, а создание документации существенно упрощается.
+              </p>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+              <h4 style="font-size: 1.19rem; color: var(--amber); margin-bottom: 4px;"><i class="fa-solid fa-shield-halved"></i> Фокус на оценку рисков:</h4>
+              <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.45;">
+                На каждом витке определяется качество продукта, оцениваются управленческие и технические риски, и лишь после этого планируются работы и инвестиции следующего витка.
+              </p>
+            </div>
+
+            <div class="trend-box" style="margin-top: 8px; padding: 12px 14px;">
+              <span style="font-size: 1.09rem; font-weight: 700; color: var(--cyan);">Прямой предок Agile и MVP (2026):</span>
+              <p style="font-size: 1.06rem; color: var(--text-2); margin-top: 2px;">
+                Витки спирали эволюционировали в спринты Scrum и релизы MVP. Заказчик получает работающий функционал каждые 2 недели, непрерывно давая обратную связь.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: СРАВНИТЕЛЬНАЯ ТАБЛИЦА: ГОСТ 34 vs ISO 12207 vs AGILE -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-scale-balanced"></i> Блок 2. Стандартизация ЖЦ</div>
+          <h2 class="slide-title">Сравнительный анализ стандартов и методологий</h2>
+          <p class="slide-subtitle">ГОСТ 34.601-90, международный стандарт ISO/IEC/IEEE 12207 и гибкие подходы</p>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Критерий</th>
+              <th style="width: 26%;">ГОСТ 34.601-90 (РФ)</th>
+              <th style="width: 27%;">ISO/IEC/IEEE 12207:2026</th>
+              <th style="width: 27%;">Agile / DevSecOps (2026)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Базовая парадигма</strong></td>
+              <td>Стадийно-фазовый подход (высокая формализация этапов).</td>
+              <td>Процессный подход (4 группы процессов, не привязанных жестко к стадиям).</td>
+              <td>Итеративно-инкрементальная ценностно-ориентированная разработка.</td>
+            </tr>
+            <tr>
+              <td><strong>Отношение к ТЗ</strong></td>
+              <td>Жесткий документ, обязательный к строгому исполнению.</td>
+              <td>Согласование спецификаций требований правообладателей.</td>
+              <td>Product Backlog — живой, регулярно пополняемый список задач.</td>
+            </tr>
+            <tr>
+              <td><strong>Документация</strong></td>
+              <td>Исчерпывающий комплект по ЕСКД/ЕЭСП на каждом шаге.</td>
+              <td>Документирование результатов ключевых процессов.</td>
+              <td>Код и автотесты как первоисточник правды, Docs-as-Code.</td>
+            </tr>
+            <tr>
+              <td><strong>Основная сфера применения</strong></td>
+              <td>Госзаказ, госкорпорации, критические системы с аттестацией ФСТЭК.</td>
+              <td>Международный промышленный инжиниринг, крупный Enterprise.</td>
+              <td>B2C-сервисы, финтех, SaaS-платформы, стартапы.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 15: ЗАЧЕМ НУЖНА ФОРМАЛИЗАЦИЯ ТЕХНОЛОГИИ ПРОЕКТИРОВАНИЯ? -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-square-root-variable"></i> Блок 3. Формализация технологии</div>
+          <h2 class="slide-title">Необходимость формализации технологии проектирования</h2>
+          <p class="slide-subtitle">Почему интуитивного управления недостаточно при создании сложных систем</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card" style="border-left: 4px solid var(--rose);">
+            <h3 style="font-size: 1.31rem; color: #fff; margin-bottom: 10px;"><i class="fa-solid fa-triangle-exclamation" style="color: var(--rose);"></i> Вызовы масштабных проектов:</h3>
+            <ul class="bullet-list">
+              <li><strong>Колоссальная сложность:</strong> миллионы строк кода, тысячи таблиц БД, терабайты информации.</li>
+              <li><strong>Высокие трудозатраты:</strong> сотни человеко-лет работы междисциплинарных команд.</li>
+              <li><strong>Финансовые риски:</strong> перерасход бюджетов при отсутствии формального аппарата контроля.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-left: 4px solid var(--emerald);">
+            <h3 style="font-size: 1.31rem; color: #fff; margin-bottom: 10px;"><i class="fa-solid fa-bullseye" style="color: var(--emerald);"></i> Задачи формализованной модели:</h3>
+            <ul class="bullet-list">
+              <li>Оценить <strong>необходимость и возможность применения</strong> конкретной технологии проектирования на объекте.</li>
+              <li>Учесть заданные требования к ИС и жестко сопоставить их с <strong>выделенными ресурсами</strong> предприятия.</li>
+              <li>Инструментально <strong>контролировать ход и промежуточные результаты</strong> проектирования на каждом шаге.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 20px; border: 1px solid var(--cyan);">
+          <h4 style="font-size: 1.25rem; color: var(--cyan); margin-bottom: 6px;"><i class="fa-solid fa-award"></i> Научный базис отечественной школы:</h4>
+          <p style="font-size: 1.19rem; color: #fff; line-height: 1.6;">
+            В наибольшей степени задаче формализации технологии проектирования соответствует аппарат <strong>технологических сетей проектирования (ТСП)</strong>, разработанный <strong>Э.Н. Хотышевым</strong> и получивший фундаментальное развитие в трудах профессора <strong>И.Н. Дрогобыцкого</strong>.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: МОДЕЛЬ ТЕХНОЛОГИЧЕСКОЙ ОПЕРАЦИИ (ТО) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-microchip"></i> Блок 3. Формализация технологии</div>
+          <h2 class="slide-title">Формальное определение технологической операции (ТО)</h2>
+          <p class="slide-subtitle">Графический и математический базис технологической сети проектирования</p>
+        </div>
+
+        <!-- Visual TSP Network Node -->
+        <div class="diagram-container" style="padding: 24px; margin-bottom: 20px;">
+          <svg class="vector-diag" viewBox="0 0 760 170" width="100%">
+            <!-- Input V -->
+            <circle cx="80" cy="85" r="38" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" stroke-width="2.5"></circle>
+            <text x="80" y="93" fill="#38bdf8" font-size="27.6" font-weight="800" font-family="'Fira Code', monospace" text-anchor="middle">V</text>
+            <text x="80" y="145" fill="#94a3b8" font-size="14.9" font-weight="600" text-anchor="middle">Входной вектор</text>
+
+            <!-- Arrow 1 -->
+            <path d="M 125 85 L 240 85" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arr-cyan)"></path>
+            <polygon points="245,85 235,80 235,90" fill="#94a3b8"></polygon>
+
+            <!-- ТО Box -->
+            <rect x="250" y="35" width="260" height="100" rx="12" fill="rgba(168, 85, 247, 0.15)" stroke="#a855f7" stroke-width="2.5"></rect>
+            <text x="380" y="70" fill="#ffffff" font-size="22.5" font-weight="800" font-family="'Fira Code', monospace" text-anchor="middle">ТО : [ П : R, S ]</text>
+            <text x="380" y="98" fill="#c084fc" font-size="16.2" text-anchor="middle">Преобразователь : Ресурсы, Средства</text>
+            <text x="380" y="118" fill="#94a3b8" font-size="14.9" text-anchor="middle">Технологическая операция</text>
+
+            <!-- Arrow 2 -->
+            <path d="M 515 85 L 630 85" stroke="#94a3b8" stroke-width="2.5"></path>
+            <polygon points="635,85 625,80 625,90" fill="#94a3b8"></polygon>
+
+            <!-- Output W -->
+            <circle cx="680" cy="85" r="38" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="2.5"></circle>
+            <text x="680" y="93" fill="#10b981" font-size="27.6" font-weight="800" font-family="'Fira Code', monospace" text-anchor="middle">W</text>
+            <text x="680" y="145" fill="#94a3b8" font-size="14.9" font-weight="600" text-anchor="middle">Выходной вектор</text>
+          </svg>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <h4 style="font-size: 1.19rem; color: var(--cyan); margin-bottom: 6px;">Графические правила ТСП:</h4>
+            <p style="font-size: 1.12rem; color: var(--text-2); line-height: 1.5;">
+              ТО представляется в виде <strong>прямоугольного блока</strong>, внутри которого указывается наименование операции, используемые средства (S) и ресурсы (R). Входы и выходы изображаются <strong>кружками</strong> с идентификаторами потоков.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <h4 style="font-size: 1.19rem; color: var(--purple); margin-bottom: 6px;">Определение технологической сети:</h4>
+            <p style="font-size: 1.12rem; color: var(--text-2); line-height: 1.5;">
+              <strong>Технологическая сеть проектирования (ТСП)</strong> — это взаимосвязанная по входам и выходам последовательность ТО, выполнение которых приводит к получению требуемого целостного проекта ИС.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: КОМПОНЕНТЫ ВХОДА И ВЫХОДА (D, P, G, U) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-folder-tree"></i> Блок 3. Формализация технологии</div>
+          <h2 class="slide-title">Информационные компоненты потоков: D, P, G, U</h2>
+          <p class="slide-subtitle">Четыре универсальных класса сущностей, составляющих векторы V и W</p>
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 18px;">
+          <!-- D -->
+          <div class="glass-card" style="border-top: 3px solid var(--cyan);">
+            <div style="font-family: 'Fira Code'; font-size: 1.65rem; color: var(--cyan); font-weight: 800; margin-bottom: 4px;">D</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Документ</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.45;">
+              <strong>Описатель множества взаимосвязанных фактов.</strong> Описывает материальные/информационные потоки, оргструктуру предприятия, технические комплексы.
+            </p>
+          </div>
+
+          <!-- P -->
+          <div class="glass-card" style="border-top: 3px solid var(--amber);">
+            <div style="font-family: 'Fira Code'; font-size: 1.65rem; color: var(--amber); font-weight: 800; margin-bottom: 4px;">P</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Параметр</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.45;">
+              <strong>Описатель одного факта.</strong> Частный случай документа. Подчеркивает значимость конкретного условия: бюджет, директивный срок, форма юрлица.
+            </p>
+          </div>
+
+          <!-- G -->
+          <div class="glass-card" style="border-top: 3px solid var(--purple);">
+            <div style="font-family: 'Fira Code'; font-size: 1.65rem; color: var(--purple); font-weight: 800; margin-bottom: 4px;">G</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Программа</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.45;">
+              <strong>Описание алгоритма решения задачи.</strong> Эволюционирует по мере ЖЦ: от формальной спецификации и псевдокода до исполняемого машинного бинарника.
+            </p>
+          </div>
+
+          <!-- U -->
+          <div class="glass-card" style="border-top: 3px solid var(--emerald);">
+            <div style="font-family: 'Fira Code'; font-size: 1.65rem; color: var(--emerald); font-weight: 800; margin-bottom: 4px;">U</div>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Универсум</h4>
+            <p style="font-size: 1.09rem; color: var(--text-2); line-height: 1.45;">
+              <strong>Полное и конечное множество фактов одного типа.</strong> Множество альтернатив выбора, определяющих дальнейшие проектные решения (каталоги СУБД, языков).
+            </p>
+          </div>
+        </div>
+
+        <div class="glass-card" style="padding: 14px 20px;">
+          <span style="font-size: 1.15rem; font-weight: 700; color: #fff;">Математическая нотация:</span>
+          <p style="font-family: 'Fira Code', monospace; font-size: 1.15rem; color: var(--cyan); margin-top: 4px;">
+            V = { D<sub>i1</sub>, U<sub>i2</sub>, P<sub>i3</sub>, G<sub>i4</sub> } &nbsp; ⟶ &nbsp; [ ТО ] &nbsp; ⟶ &nbsp; W = { D<sub>j1</sub>, U<sub>j2</sub>, P<sub>j3</sub>, G<sub>j4</sub> }
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: ОПЕРАЦИОННЫЙ БАЗИС: ПРЕОБРАЗОВАТЕЛИ (П), РЕСУРСЫ (R), СРЕДСТВА (S) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-gears"></i> Блок 3. Формализация технологии</div>
+          <h2 class="slide-title">Внутренний базис ТО: Преобразователи (П), Ресурсы (R), Средства (S)</h2>
+          <p class="slide-subtitle">Что происходит внутри блока технологической операции при переработке информации</p>
+        </div>
+
+        <div class="grid-3">
+          <!-- Преобразователь -->
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <span style="font-family: 'Fira Code'; font-size: 1.53rem; color: var(--cyan); font-weight: 800;">П</span>
+              <h3 style="font-size: 1.31rem; color: #fff;">Преобразователь</h3>
+            </div>
+            <p style="font-size: 1.11rem; color: var(--text-2); margin-bottom: 10px; line-height: 1.45;">
+              Методика или алгоритм (математическая модель, эвристическое правило, псевдокод), переводящий вход ТО в выход.
+            </p>
+            <div style="font-size: 1.09rem; color: var(--text-2); background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+              <strong>Методы реализации:</strong> ручные (экспертные), автоматизированные (CASE-инструменты), автоматические (компиляторы).
+            </div>
+          </div>
+
+          <!-- Ресурсы -->
+          <div class="glass-card" style="border-top: 4px solid var(--amber);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <span style="font-family: 'Fira Code'; font-size: 1.53rem; color: var(--amber); font-weight: 800;">R</span>
+              <h3 style="font-size: 1.31rem; color: #fff;">Ресурсы</h3>
+            </div>
+            <p style="font-size: 1.11rem; color: var(--text-2); margin-bottom: 10px; line-height: 1.45;">
+              Пул средств, расходуемых для выполнения технологической операции.
+            </p>
+            <ul class="bullet-list" style="font-size: 1.09rem;">
+              <li><strong>Людские:</strong> состав инженеров, аналитиков.</li>
+              <li><strong>Компьютерные:</strong> мощности CPU, GPU, кластеры.</li>
+              <li><strong>Финансовые:</strong> выделенный фонд оплаты и лицензий.</li>
+              <li><strong>Временные:</strong> отведенный календарный дедлайн.</li>
+            </ul>
+          </div>
+
+          <!-- Средства -->
+          <div class="glass-card" style="border-top: 4px solid var(--purple);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <span style="font-family: 'Fira Code'; font-size: 1.53rem; color: var(--purple); font-weight: 800;">S</span>
+              <h3 style="font-size: 1.31rem; color: #fff;">Средства (S)</h3>
+            </div>
+            <p style="font-size: 1.11rem; color: var(--text-2); margin-bottom: 10px; line-height: 1.45;">
+              Специальный класс ресурсов, включающий <strong>методические и инструментальные средства</strong> выполнения операции.
+            </p>
+            <div style="font-size: 1.09rem; color: var(--text-2); background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+              Нотации UML/BPMN, среды IDE, CI/CD-пайплайны, статические анализаторы кода (SonarQube) и стандарты оформления.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: СКВОЗНОЙ ПРАКТИЧЕСКИЙ КЕЙС (ЭТАПЫ 1-3) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-truck-fast"></i> Блок 4. Практика проектирования (2026)</div>
+          <h2 class="slide-title">Сквозной кейс: Cloud-ERP для федеральной логистики (Фаза 1)</h2>
+          <p class="slide-subtitle">Практическая демонстрация стадий системного анализа и системного синтеза</p>
+        </div>
+
+        <div class="grid-3">
+          <!-- Step 1 -->
+          <div class="glass-card" style="border-left: 3px solid var(--cyan);">
+            <span class="badge badge-cyan" style="margin-bottom: 8px;">Стадия 1</span>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Анализ и ТЗ</h4>
+            <p style="font-size: 1.12rem; color: var(--text-2); line-height: 1.45;">
+              <strong>Обследование:</strong> 25 сортировочных центров, задержки до 14% из-за разрозненных таблиц Excel.<br>
+              <strong>ТЭО:</strong> бюджет 45 млн руб., окупаемость за 11 месяцев.<br>
+              <strong>ТЗ:</strong> SLA 99.98%, отклик API &lt; 80 мс, 60 000 курьеров онлайн.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="glass-card" style="border-left: 3px solid var(--purple);">
+            <span class="badge badge-purple" style="margin-bottom: 8px;">Стадия 2</span>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Проектирование ФА и СА</h4>
+            <p style="font-size: 1.12rem; color: var(--text-2); line-height: 1.45;">
+              <strong>ФА:</strong> подсистемы биллинга, маршрутизации, трекинга.<br>
+              <strong>СА:</strong> микросервисы в Kubernetes, шина Apache Kafka, СУБД PostgreSQL + Redis Cache.<br>
+              <strong>Универсум U:</strong> отечественная ОС Astra Linux по нормам безопасности.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="glass-card" style="border-left: 3px solid var(--emerald);">
+            <span class="badge badge-emerald" style="margin-bottom: 8px;">Стадия 3</span>
+            <h4 style="font-size: 1.19rem; margin-bottom: 6px;">Физическая реализация</h4>
+            <p style="font-size: 1.12rem; color: var(--text-2); line-height: 1.45;">
+              <strong>Код:</strong> бэкенд на Go / Java Spring Boot.<br>
+              <strong>ИО:</strong> первичное наполнение справочников картографических зон и тарифов.<br>
+              <strong>Документы:</strong> электронные регламенты для диспетчеров и мобильные руководства курьеров.
+            </p>
+          </div>
+        </div>
+
+        <div class="trend-box" style="margin-top: 16px;">
+          <div class="trend-header"><i class="fa-solid fa-code"></i> Отражение в терминах ТСП:</div>
+          <p style="font-size: 1.11rem; color: var(--text-2); line-height: 1.4;">
+            На этапе 2 из универсума СУБД $U_{db}$ была выбрана PostgreSQL, что превратилось в параметр $P_{db}$ для стадии реализации. Программа $G$ прошла трансформацию от архитектурных C4-диаграмм до готовых Docker-контейнеров.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: СКВОЗНОЙ ПРАКТИЧЕСКИЙ КЕЙС (ЭТАПЫ 4-5) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-server"></i> Блок 4. Практика проектирования (2026)</div>
+          <h2 class="slide-title">Сквозной кейс: Cloud-ERP для федеральной логистики (Фаза 2)</h2>
+          <p class="slide-subtitle">Внедрение, телеметрия и переход к модернизации ИС</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- Step 4 -->
+          <div class="glass-card" style="border-left: 4px solid var(--amber);">
+            <span class="badge badge-amber" style="margin-bottom: 8px;">Стадия 4: Внедрение ИС</span>
+            <h3 style="font-size: 1.31rem; color: #fff; margin-bottom: 8px;">Опытный и промышленный пуск</h3>
+            <ul class="bullet-list">
+              <li><strong>Опытное внедрение:</strong> пилотный пуск в распределительном центре г. Казани. Выявлено 18 дефектов дедупликации заказов в шине Kafka.</li>
+              <li><strong>Устранение ошибок:</strong> корректировка микросервиса биллинга за 48 часов.</li>
+              <li><strong>Промышленный ввод:</strong> проведение нагрузочных испытаний (100 000 виртуальных запросов/сек) и подписание Акта сдачи.</li>
+            </ul>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="glass-card" style="border-left: 4px solid var(--rose);">
+            <span class="badge badge-rose" style="margin-bottom: 8px;">Стадия 5: Сопровождение и AI</span>
+            <h3 style="font-size: 1.31rem; color: #fff; margin-bottom: 8px;">Эксплуатация и модернизация 2026</h3>
+            <ul class="bullet-list">
+              <li><strong>Телеметрия:</strong> мониторинг 24/7 в Grafana + OpenTelemetry, сбор рекламаций курьеров о сбоях GPS.</li>
+              <li><strong>Модернизация (Новый виток спирали):</strong> подключение прогнозной ML-модели для динамического распределения курьеров перед праздничными распродажами.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 18px; padding: 14px 20px;">
+          <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5;">
+            <strong style="color: #fff;">Вывод кейса:</strong> На реальном проекте подтвердилось ключевое академическое правило: качественный системный анализ и архитектурный синтез на этапах 1–2 предотвратили миллионные убытки на стадии внедрения.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: ИНТЕРАКТИВНЫЙ ТЕСТ ДЛЯ САМОПРОВЕРКИ (QUIZ) -->
+      <section class="slide">
+        <div class="slide-header" style="text-align: center;">
+          <div class="slide-category" style="justify-content: center;"><i class="fa-solid fa-circle-question"></i> Блок 5. Закрепление материала</div>
+          <h2 class="slide-title">Интерактивный экспресс-контроль для студентов</h2>
+          <p class="slide-subtitle">Проверьте понимание ключевых академических концепций лекции</p>
+        </div>
+
+        <div style="max-width: 820px; margin: 0 auto; width: 100%;">
+          <div class="glass-card" id="quizCard">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span id="quizBadge" class="badge badge-cyan">Вопрос 1 из 3</span>
+              <span id="quizScoreText" style="font-family: 'Fira Code', monospace; font-size: 1.15rem; color: var(--text-2);">Верно: 0</span>
+            </div>
+
+            <h3 id="quizQuestion" style="font-size: 1.36rem; margin-bottom: 18px; line-height: 1.4; color: #fff;">Какие два этапа в отечественной школе проектирования традиционно объединяют в стадию «Системного синтеза» (техно-рабочего проектирования)?</h3>
+
+            <div id="quizOptionsContainer"><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">A.</span> <span>Анализ требований и предпроектное обследование</span></div><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">B.</span> <span>Проектирование и Реализация (техническое и рабочее проектирование)</span></div><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">C.</span> <span>Тестирование и приемочные испытания</span></div><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">D.</span> <span>Эксплуатация и сбор рекламаций</span></div></div>
+
+            <div id="quizFeedback" style="display: none; padding: 12px 16px; border-radius: 8px; margin-top: 14px; font-size: 1.15rem; line-height: 1.45;"></div>
+
+            <button id="quizNextBtn" class="btn-nav" style="display: none; width: auto; padding: 10px 22px; font-weight: 600; margin-top: 16px; background: var(--grad-cyan-indigo); border: none; border-radius: 8px; color: #fff;" onclick="nextQuizItem()">
+              Следующий вопрос <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: ИТОГИ, ВОПРОСЫ И РЕКОМЕНДУЕМАЯ ЛИТЕРАТУРА -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-flag-checkered"></i> Завершение лекции</div>
+          <h2 class="slide-title">Итоги темы и контрольные вопросы к экзамену</h2>
+          <p class="slide-subtitle">Что студент должен четко знать по теме «Жизненный цикл ИС»</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <h3 style="font-size: 1.31rem; color: var(--cyan); margin-bottom: 10px;"><i class="fa-solid fa-circle-question"></i> Вопросы для самопроверки (из рабочей программы):</h3>
+            <ol style="padding-left: 20px; font-size: 1.12rem; color: var(--text-2); line-height: 1.6;">
+              <li>Что такое жизненный цикл ИС и из каких 5 стадий он состоит?</li>
+              <li>Чем принципиально отличаются системный анализ и системный синтез?</li>
+              <li>Что такое функциональная (ФА) и системная архитектура (СА)?</li>
+              <li>Укажите достоинства и критические недостатки каскадной, итерационной и спиральной моделей ЖЦ.</li>
+              <li>Как формально определяется технологическая операция проектирования (ТО)?</li>
+              <li>Что обозначают символы D, P, G, U, П, R, S в аппарате ТСП Хотышева — Дрогобыцкого?</li>
+            </ol>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="font-size: 1.31rem; color: var(--purple); margin-bottom: 10px;"><i class="fa-solid fa-bookmark"></i> Ключевой вывод лекции:</h3>
+            <p style="font-size: 1.15rem; color: var(--text-2); line-height: 1.5; margin-bottom: 14px;">
+              Жизненный цикл ИС — это не просто последовательность шагов разработки софта, а строгая инженерная дисциплина управления информационными потоками, ресурсами и рисками от первой идеи до вывода системы из эксплуатации.
+            </p>
+            
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill" style="width: 4.54545%;"></div>
+  </div>
+
+  <script>
+    // Slider Navigation Script
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const counterEl = document.getElementById('slideCounter');
+    const progressEl = document.getElementById('progressFill');
+
+    function updatePresentation() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      counterEl.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      progressEl.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updatePresentation();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updatePresentation();
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentSlide = index;
+        updatePresentation();
+      }
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', nextSlide);
+    document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'Home') {
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides - 1);
+      }
+    });
+
+    // Fullscreen support
+    document.getElementById('fsBtn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    });
+
+    // Quiz Component Data & Logic
+    const quizItems = [
+      {
+        question: "Какие два этапа в отечественной школе проектирования традиционно объединяют в стадию «Системного синтеза» (техно-рабочего проектирования)?",
+        options: [
+          "Анализ требований и предпроектное обследование",
+          "Проектирование и Реализация (техническое и рабочее проектирование)",
+          "Тестирование и приемочные испытания",
+          "Эксплуатация и сбор рекламаций"
+        ],
+        correct: 1,
+        feedback: "Верно! Проектирование (разработка функциональной и системной архитектуры) и реализация (программирование и наполнение БД) объединяются в макростадию техно-рабочего проектирования (системного синтеза)."
+      },
+      {
+        question: "В чем заключается ключевой недостаток итерационной модели разработки с обратной связью (1970–80-е гг.)?",
+        options: [
+          "Полная невозможность исправить ошибки в коде",
+          "Отсутствие этапа тестирования системы",
+          "Рассогласование в выполненных проектных решениях и документации из-за множества возвратов",
+          "Запрет на проведение опытной эксплуатации"
+        ],
+        correct: 2,
+        feedback: "Верно! Согласно лекции, из-за частых итерационных возвратов при увязке подсистем возникает критическое рассогласование между актуальным программным кодом и документацией."
+      },
+      {
+        question: "Что в технологических сетях проектирования (ТСП) Хотышева — Дрогобыцкого обозначает символ U (Универсум)?",
+        options: [
+          "Утвержденный денежный бюджет операции",
+          "Конечное и полное множество фактов одного типа, определяющее альтернативы выбора (например, спектр доступных СУБД или языков)",
+          "Исполняемый машинный бинарный код",
+          "ФИО ведущего системного архитектора проекта"
+        ],
+        correct: 1,
+        feedback: "Верно! Универсум U — это полное множество фактов одного типа, выбор конкретного экземпляра из которого задает характер дальнейших проектных решений."
+      }
+    ];
+
+    let quizIdx = 0;
+    let quizScore = 0;
+
+    function renderQuizItem() {
+      const q = quizItems[quizIdx];
+      document.getElementById('quizBadge').textContent = `Вопрос ${quizIdx + 1} из ${quizItems.length}`;
+      document.getElementById('quizScoreText').textContent = `Верно: ${quizScore}`;
+      document.getElementById('quizQuestion').textContent = q.question;
+      
+      const optWrap = document.getElementById('quizOptionsContainer');
+      optWrap.innerHTML = '';
+      
+      const fb = document.getElementById('quizFeedback');
+      fb.style.display = 'none';
+      document.getElementById('quizNextBtn').style.display = 'none';
+
+      q.options.forEach((txt, i) => {
+        const btn = document.createElement('div');
+        btn.className = 'quiz-opt';
+        btn.innerHTML = `<span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">${String.fromCharCode(65 + i)}.</span> <span>${txt}</span>`;
+        btn.onclick = () => selectQuizAnswer(i);
+        optWrap.appendChild(btn);
+      });
+    }
+
+    function selectQuizAnswer(chosen) {
+      const q = quizItems[quizIdx];
+      const allOpts = document.querySelectorAll('.quiz-opt');
+      
+      allOpts.forEach((btn, idx) => {
+        btn.onclick = null;
+        if (idx === q.correct) {
+          btn.classList.add('correct');
+        } else if (idx === chosen) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      const fb = document.getElementById('quizFeedback');
+      fb.style.display = 'block';
+
+      if (chosen === q.correct) {
+        quizScore++;
+        fb.style.background = 'rgba(16, 185, 129, 0.15)';
+        fb.style.border = '1px solid var(--emerald)';
+        fb.style.color = '#a7f3d0';
+        fb.innerHTML = `<strong><i class="fa-solid fa-check"></i> Отлично!</strong> ${q.feedback}`;
+      } else {
+        fb.style.background = 'rgba(244, 63, 94, 0.15)';
+        fb.style.border = '1px solid var(--rose)';
+        fb.style.color = '#fecdd3';
+        fb.innerHTML = `<strong><i class="fa-solid fa-xmark"></i> Неверно.</strong> Правильный ответ: ${String.fromCharCode(65 + q.correct)}. ${q.feedback}`;
+      }
+
+      document.getElementById('quizScoreText').textContent = `Верно: ${quizScore}`;
+
+      if (quizIdx < quizItems.length - 1) {
+        document.getElementById('quizNextBtn').style.display = 'inline-flex';
+      }
+    }
+
+    function nextQuizItem() {
+      if (quizIdx < quizItems.length - 1) {
+        quizIdx++;
+        renderQuizItem();
+      }
+    }
+
+    // Initialize
+    updatePresentation();
+    renderQuizItem();
+  </script>
+
+
+</body></html>
