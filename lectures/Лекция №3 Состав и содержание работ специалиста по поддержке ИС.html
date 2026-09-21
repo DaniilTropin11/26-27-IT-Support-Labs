@@ -1,0 +1,1822 @@
+<html lang="ru"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Состав и содержание работ специалиста по поддержке ИС (2026)</title>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-main: #060913;
+      --bg-surface: #0c1322;
+      --bg-card: rgba(15, 23, 42, 0.95);
+      --bg-card-alt: rgba(22, 33, 60, 0.7);
+      --border: rgba(56, 189, 248, 0.28);
+      --border-strong: rgba(56, 189, 248, 0.65);
+      
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --purple: #c084fc;
+      --purple-dark: #9333ea;
+      --amber: #fbbf24;
+      --rose: #fb7185;
+      --indigo: #818cf8;
+      
+      --text-1: #ffffff;
+      --text-2: #e2e8f0;
+      --text-3: #94a3b8;
+      
+      --grad-cyan-indigo: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      --grad-emerald-cyan: linear-gradient(135deg, #10b981 0%, #38bdf8 100%);
+      --grad-rose-purple: linear-gradient(135deg, #fb7185 0%, #c084fc 100%);
+      --grad-amber-orange: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-1);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      font-size: 16px;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.14) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 9, 19, 0.95);
+      backdrop-filter: blur(16px);
+      position: relative;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+    .brand i {
+      color: var(--cyan);
+      font-size: 1.35rem;
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.7));
+    }
+    .badge-2026 {
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--cyan);
+      font-size: 0.82rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .slide-counter {
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-weight: 700;
+    }
+
+    .btn-nav {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-1);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+    }
+    .btn-nav:hover {
+      background: rgba(56, 189, 248, 0.25);
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Main Container */
+    main {
+      height: calc(100vh - 64px - 6px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-deck {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      transform: translateY(10px);
+      padding: 24px 44px 30px 44px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      gap: 16px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Header Zone */
+    .slide-header {
+      flex-shrink: 0;
+    }
+
+    .slide-category {
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--cyan);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-title {
+      font-size: 2.15rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 65%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-2);
+      margin-top: 4px;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    /* Cards Layout */
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: stretch; }
+
+    /* Card Elements */
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 8px;
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-lead {
+      font-size: 1.02rem;
+      color: #ffffff;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    /* High-density informative lists */
+    ul.item-list {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    ul.item-list li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      color: var(--text-2);
+    }
+    ul.item-list li strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    ul.item-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--cyan);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .badge-cyan { background: rgba(56, 189, 248, 0.2); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.45); }
+    .badge-purple { background: rgba(192, 132, 252, 0.2); color: var(--purple); border: 1px solid rgba(192, 132, 252, 0.45); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.45); }
+    .badge-amber { background: rgba(251, 191, 36, 0.2); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.45); }
+    .badge-rose { background: rgba(251, 113, 133, 0.2); color: var(--rose); border: 1px solid rgba(251, 113, 133, 0.45); }
+
+    /* Bottom Banners / Callouts */
+    .banner-box {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.12) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+    .banner-text {
+      font-size: 1.02rem;
+      color: #ffffff;
+      line-height: 1.5;
+    }
+    .banner-text strong {
+      color: var(--cyan);
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: var(--cyan);
+      font-size: 0.9em;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Tables */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    .styled-table th {
+      background: rgba(56, 189, 248, 0.18);
+      color: var(--cyan);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 800;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 1.02rem;
+    }
+    .styled-table td {
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-2);
+      background: rgba(255, 255, 255, 0.03);
+      line-height: 1.45;
+    }
+    .styled-table tr:hover td {
+      background: rgba(56, 189, 248, 0.08);
+      color: #fff;
+    }
+
+    /* Diagrams */
+    .diagram-container {
+      background: rgba(11, 17, 33, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    svg.vector-diag { max-width: 100%; height: auto; }
+
+    /* Progress bar */
+    .progress-track {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--grad-cyan-indigo);
+      transition: width 0.2s ease;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+    }
+
+    /* Quiz */
+    .quiz-opt {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s ease;
+    }
+    .quiz-opt:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan);
+      transform: translateX(4px);
+    }
+    .quiz-opt.correct {
+      background: rgba(16, 185, 129, 0.25) !important;
+      border-color: var(--emerald) !important;
+      color: #fff !important;
+    }
+    .quiz-opt.wrong {
+      background: rgba(244, 63, 94, 0.25) !important;
+      border-color: var(--rose) !important;
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <i class="fa-solid fa-screwdriver-wrench"></i>
+      <span>Инженерно-техническая поддержка сопровождения ИС</span>
+      
+    </div>
+
+    <div class="nav-controls">
+      <span style="font-family: 'Fira Code', monospace; font-size: 0.76rem; color: var(--text-3);"><i class="fa-solid fa-keyboard"></i> Слайды: ← → или Пробел</span>
+      <button class="btn-nav" id="prevBtn" title="Назад"><i class="fa-solid fa-arrow-left"></i></button>
+      <div class="slide-counter" id="slideCounter">01 / 22</div>
+      <button class="btn-nav" id="nextBtn" title="Вперед"><i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-nav" id="fsBtn" title="Полный экран"><i class="fa-solid fa-expand"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <div class="slide-deck" id="slideDeck">
+
+      <!-- SLIDE 1: ТИТУЛЬНЫЙ ЛИСТ -->
+      <section class="slide active">
+        <div style="max-width: 980px; margin: auto; text-align: center;">
+          
+          <h1 class="slide-title" style="font-size: 2.8rem; margin: 14px 0 16px 0;">
+            Состав и содержание работ<br>
+            <span style="background: var(--grad-cyan-indigo); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">специалиста по сопровождению и поддержке ИС</span>
+          </h1>
+          <p class="slide-subtitle" style="font-size: 1.15rem; max-width: 820px; margin: 0 auto 28px auto; line-height: 1.6;">
+            Практическая реализация Стадии 5 ЖЦ ИС. Профессиональные задачи инженера поддержки: регламентное обновление ПО, техническое обслуживание инфраструктуры, резервное копирование, восстановление после сбоев и ролевой доступ (RBAC).
+          </p>
+
+          <div class="grid-4" style="text-align: left; margin-bottom: 26px;">
+            <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+              <span class="badge badge-cyan">Направление 1</span>
+              <h4 style="font-size: 1.1rem; color: #fff; margin-top: 4px;">Обновление ПО</h4>
+              <p style="font-size: 0.92rem; color: var(--text-2); line-height: 1.45;">Патчи уязвимостей (Zero-Day), миграции схем баз данных, релизы без простоя (Zero-Downtime).</p>
+            </div>
+            <div class="glass-card" style="border-top: 4px solid var(--purple);">
+              <span class="badge badge-purple">Направление 2</span>
+              <h4 style="font-size: 1.1rem; color: #fff; margin-top: 4px;">ТО и телеметрия</h4>
+              <p style="font-size: 0.92rem; color: var(--text-2); line-height: 1.45;">Аппаратный аудит, мониторинг (Prometheus/Grafana), очистка дисков и оптимизация СУБД.</p>
+            </div>
+            <div class="glass-card" style="border-top: 4px solid var(--rose);">
+              <span class="badge badge-rose">Направление 3</span>
+              <h4 style="font-size: 1.1rem; color: #fff; margin-top: 4px;">Disaster Recovery</h4>
+              <p style="font-size: 0.92rem; color: var(--text-2); line-height: 1.45;">Правило бэкапа «3-2-1», удержание метрик RPO/RTO и аварийное развёртывание из снимков.</p>
+            </div>
+            <div class="glass-card" style="border-top: 4px solid var(--emerald);">
+              <span class="badge badge-emerald">Направление 4</span>
+              <h4 style="font-size: 1.1rem; color: #fff; margin-top: 4px;">Контроль доступа</h4>
+              <p style="font-size: 0.92rem; color: var(--text-2); line-height: 1.45;">Роли RBAC, принцип наименьших привилегий, службы каталогов (ALD Pro/AD) и токены 2FA.</p>
+            </div>
+          </div>
+
+          <button class="btn-nav" style="width: auto; height: auto; padding: 12px 32px; font-weight: 700; font-size: 1rem; background: var(--grad-cyan-indigo); border: none; border-radius: 10px; color: #fff; margin: 0 auto; display: inline-flex; gap: 10px;" onclick="goToSlide(1)">
+            Начать изучение лекции <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: РЕГЛАМЕНТ И СВЯЗЬ С СТАДИЕЙ 5 ЖЦ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-link"></i> Контекст дисциплины</div>
+          <h2 class="slide-title">Место темы в жизненном цикле ИС и регламент</h2>
+          <p class="slide-subtitle">Связь со Стадией 5 ЖЦ («Эксплуатация и сопровождение») и план лекции на 90 минут</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-clock" style="color: var(--cyan);"></i> Тайм-план занятия (90 минут)</span>
+              <span class="badge badge-cyan">Регламент</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>Блок 1:</strong> Организация службы поддержки, уровни L1/L2/L3, соглашение SLA и жизненный цикл тикета.</li>
+              <li><strong>Блок 2:</strong> Задача 1 (Обновление ПО) и Задача 2 (Техническое обслуживание серверов и мониторинг телеметрии).</li>
+              <li><strong>Блок 3:</strong> Задача 3 (Резервное копирование данных, золотое правило 3-2-1, метрики RPO и RTO).</li>
+              <li><strong>Блок 4:</strong> Задача 4 (Настройка прав, матрица доступа RBAC, единый каталог и защита учётных записей 2FA).</li>
+              <li><strong>Блок 5:</strong> Практический разбор аварийного инцидента, интерактивный экспресс-квиз и подведение итогов.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-left: 4px solid var(--purple);">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-lightbulb" style="color: var(--purple);"></i> Мостик от теории ЖЦ ИС к реальной работе</span>
+              <span class="badge badge-purple">Теория $	o$ Практика</span>
+            </div>
+            <p class="card-lead">
+              В предыдущей лекции было доказано: <strong>до 80% совокупных затрат (TCO)</strong> за всё время жизни системы приходится именно на стадию эксплуатации.
+            </p>
+            <ul class="item-list">
+              <li><strong>Почему система не живёт «сама по себе»?</strong> Базы данных фрагментируются, диски заполняются логами, выходят обновления законодательства, увольняются и приходят сотрудники.</li>
+              <li><strong>Суть работы инженера:</strong> Поддержка — это не просто «ждать звонка о поломке», а <em>проактивное предотвращение отказов</em> за счёт регламентов, мониторинга и автоматизации.</li>
+              <li><strong>Связь с лабораторной работой №2:</strong> Все проектируемые решения для Стадии 5 (бэкапы, права, рекламации) базируются на материалах этой темы.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Главный принцип надёжности 2026 года:</strong> Успех специалиста по сопровождению измеряется не количеством героически потушенных пожаров, а тем, что пользователи вообще не замечают технических сбоев.
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: ПРОФИЛЬ ПРОФЕССИИ И УРОВНИ ПОДДЕРЖКИ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-users-gear"></i> Блок 1. Организация поддержки</div>
+          <h2 class="slide-title">Кто такой специалист по поддержке ИС?</h2>
+          <p class="slide-subtitle">Квалификационные требования ФГОС СПО 09.02.07 и распределение ролей в современной службе IT-поддержки</p>
+        </div>
+
+        <div class="grid-3">
+          <!-- L1 -->
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div class="card-head">
+              <span class="badge badge-cyan">L1: Helpdesk</span>
+              <span style="font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--cyan);">Первая линия</span>
+            </div>
+            <h3 class="card-title">Диспетчер / Оператор</h3>
+            <p class="card-lead">Входная точка контакта со всеми пользователями организации.</p>
+            <ul class="item-list">
+              <li><strong>Основные задачи:</strong> приём звонков, писем и тикетов; регистрация обращений; типовой сброс забытых паролей; первичная консультация по регламентам.</li>
+              <li><strong>Рабочий инструментарий:</strong> корпоративный Service Desk, IP-телефония, база стандартных инструкций (Knowledge Base).</li>
+              <li><strong>Ключевая метрика (KPI):</strong> First Call Resolution (FCR) — закрытие до 40% типовых обращений сразу во время первого звонка.</li>
+            </ul>
+          </div>
+
+          <!-- L2 -->
+          <div class="glass-card" style="border-top: 4px solid var(--purple); background: rgba(192, 132, 252, 0.08);">
+            <div class="card-head">
+              <span class="badge badge-purple">L2: Sysadmin / Support</span>
+              <span style="font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--purple);">Вторая линия</span>
+            </div>
+            <h3 class="card-title">Инженер поддержки ИС</h3>
+            <p class="card-lead"><strong>Главный фокус нашей темы!</strong> Специалист, отвечающий за стабильность системных служб.</p>
+            <ul class="item-list">
+              <li><strong>Основные задачи:</strong> установка обновлений ПО и патчей, регламентное обслуживание СУБД, управление правами и учётными записями, проверка бэкапов.</li>
+              <li><strong>Рабочий инструментарий:</strong> терминал SSH, скрипты автоматизации (Bash/PowerShell), панель pgAdmin, СУБД PostgreSQL, ОС Astra Linux.</li>
+              <li><strong>Ключевая метрика (KPI):</strong> соблюдение SLA по времени решения инцидентов и коэффициент доступности системы.</li>
+            </ul>
+          </div>
+
+          <!-- L3 -->
+          <div class="glass-card" style="border-top: 4px solid var(--emerald);">
+            <div class="card-head">
+              <span class="badge badge-emerald">L3: DevOps / R&amp;D</span>
+              <span style="font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--emerald);">Третья линия</span>
+            </div>
+            <h3 class="card-title">Разработчики платформы</h3>
+            <p class="card-lead">Глубокая инженерная экспертиза ядра и архитектуры продукта.</p>
+            <ul class="item-list">
+              <li><strong>Основные задачи:</strong> устранение сложных программных дефектов (багов) в коде, оптимизация архитектуры очередей и СУБД, выпуск глобальных версий.</li>
+              <li><strong>Рабочий инструментарий:</strong> репозитории Git, системы CI/CD (GitLab), трекеры багов (Jira/YouTrack), среды разработки IDE.</li>
+              <li><strong>Ключевая метрика (KPI):</strong> снижение плотности дефектов на 1000 строк кода и скорость закрытия сложных системных тикетов.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Компетенция выпускника СПО:</strong> Специалист по сопровождению ИС находится на ключевой позиции L2 — именно он обеспечивает надёжность инфраструктуры и связывает бизнес с технической командой разработки.
+          </div>
+          <span class="badge badge-cyan" style="font-size: 0.9rem; white-space: nowrap;">ФГОС 09.02.07</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: КЛАССИФИКАЦИЯ ОБСЛУЖИВАНИЯ ПО СТАНДАРТУ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-shapes"></i> Блок 1. Организация поддержки</div>
+          <h2 class="slide-title">4 вида технического обслуживания ИС</h2>
+          <p class="slide-subtitle">Классификация процессов сопровождения программных комплексов по международному стандарту ГОСТ Р ИСО/МЭК 14764</p>
+        </div>
+
+        <div class="grid-4">
+          <div class="glass-card" style="border-top: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="badge badge-rose">Корректирующее</span>
+              <span style="font-family:'Fira Code'; font-size:0.8rem; color:var(--rose);">Reactive</span>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Устранение сбоев</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Реакция на отказы и аварии в процессе промышленной работы.</p>
+            <ul class="item-list" style="font-size: 0.9rem;">
+              <li>Перезапуск упавших веб-служб и демонов.</li>
+              <li>Исправление логических блокировок в транзакциях БД.</li>
+              <li>Срочный откат (Rollback) сбойного обновления или выпуск хотфикса.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div class="card-head">
+              <span class="badge badge-cyan">Адаптивное</span>
+              <span style="font-family:'Fira Code'; font-size:0.8rem; color:var(--cyan);">Environment</span>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Подстройка под среду</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Модификация ИС при изменении внешнего IT-окружения.</p>
+            <ul class="item-list" style="font-size: 0.9rem;">
+              <li>Миграция сервиса на новую версию ОС (Astra Linux 1.8).</li>
+              <li>Обновление СУБД (PostgreSQL 15 $	o$ 16) без потери схем.</li>
+              <li>Плановая замена SSL/TLS сертификатов безопасности веб-шлюза.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--purple);">
+            <div class="card-head">
+              <span class="badge badge-purple">Совершенствующее</span>
+              <span style="font-family:'Fira Code'; font-size:0.8rem; color:var(--purple);">Enhancement</span>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Улучшение функций</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Развитие системы по запросам бизнес-пользователей.</p>
+            <ul class="item-list" style="font-size: 0.9rem;">
+              <li>Оптимизация тяжелых аналитических SQL-запросов и отчётов.</li>
+              <li>Ускорение экранных форм в пиковые часы нагрузки.</li>
+              <li>Добавление удобных фильтров и подсказок в интерфейс оператора.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--emerald);">
+            <div class="card-head">
+              <span class="badge badge-emerald">Профилактическое</span>
+              <span style="font-family:'Fira Code'; font-size:0.8rem; color:var(--emerald);">Proactive</span>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Предотвращение</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Упреждающие действия до появления первых симптомов сбоя.</p>
+            <ul class="item-list" style="font-size: 0.9rem;">
+              <li>Очистка дисков от старых логов и временных каталогов кэша.</li>
+              <li>Контроль здоровья SMART серверных накопителей SSD/HDD.</li>
+              <li>Тестовое восстановление бэкапа на изолированном стенде.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Золотое правило системного инженера:</strong> В зрелых IT-отделах до <strong>70% времени</strong> уделяется профилактическому и адаптивному ТО. Это снижает долю аварийных инцидентов до минимума и гарантирует выполнение SLA.
+          </div>
+          <span class="badge badge-emerald" style="font-size: 0.9rem;">Zero Incident</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: РЕГЛАМЕНТЫ И СОГЛАШЕНИЕ SLA -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-file-contract"></i> Блок 1. Организация поддержки</div>
+          <h2 class="slide-title">Соглашение об уровне сервиса (SLA) и регламенты</h2>
+          <p class="slide-subtitle">Понятия SLA, Service Desk, времени реакции и доступности «девяток»</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-bullseye" style="color: var(--cyan);"></i> Что такое SLA (Service Level Agreement)?</span>
+              <span class="badge badge-cyan">Стандарт ITIL</span>
+            </div>
+            <p class="card-lead">Официальный регламент между заказчиком (бизнесом) и IT-службой, определяющий уровень качества услуг.</p>
+            <ul class="item-list">
+              <li><strong>Время реакции (Response Time):</strong> гарантированный предельный срок, за который специалист обязан принять тикет в работу (например, P1 — до 15 минут).</li>
+              <li><strong>Время разрешения (Resolution Time):</strong> нормативный срок устранения инцидента или предоставления обходного пути (Workaround) для продолжения работы.</li>
+              <li><strong>Окно технического обслуживания (Maintenance Window):</strong> согласованный интервал времени (обычно выходные с 02:00 до 05:00), когда разрешены технологические перезагрузки.</li>
+              <li><strong>Штрафные санкции:</strong> финансовая или организационная ответственность службы поддержки при срыве согласованных параметров SLA.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-stopwatch" style="color: var(--purple);"></i> Цена простоя: шкала доступности «девяток»</span>
+              <span class="badge badge-purple">High Availability</span>
+            </div>
+            <table class="styled-table">
+              <thead>
+                <tr>
+                  <th>Доступность</th>
+                  <th>Допустимый простой в год</th>
+                  <th>Типичная область применения</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>99.0%</strong></td>
+                  <td>~ 3.65 суток (87.6 часов)</td>
+                  <td>Внутренние некритичные системы учёта колледжа</td>
+                </tr>
+                <tr>
+                  <td><strong>99.9%</strong> (три девятки)</td>
+                  <td>~ 8.76 часов в год</td>
+                  <td>Корпоративные порталы, ERP-системы складов, CRM</td>
+                </tr>
+                <tr>
+                  <td><strong>99.99%</strong> (четыре девятки)</td>
+                  <td>~ 52.6 минут в год</td>
+                  <td>Финтех, платёжные шлюзы, системы диспетчеризации</td>
+                </tr>
+                <tr>
+                  <td><strong>99.999%</strong> (пять девяток)</td>
+                  <td>~ 5.26 минут в год</td>
+                  <td>Критическая инфраструктура (ЦОД, телеком, АСУ ТП)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Практический вывод:</strong> Чем выше планка доступности (от 99.0% к 99.99%), тем выше требования к резервированию серверов, скорости бэкапов и квалификации инженера поддержки.
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: ЖИЗНЕННЫЙ ЦИКЛ ТИКЕТА В SERVICE DESK -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-ticket"></i> Блок 1. Организация поддержки</div>
+          <h2 class="slide-title">Жизненный цикл инцидента (тикета) в Service Desk</h2>
+          <p class="slide-subtitle">Пошаговый маршрут обработки проблемы пользователя: от звонка до базы знаний</p>
+        </div>
+
+        <div class="diagram-container">
+          <svg class="vector-diag" viewBox="0 0 760 130" width="100%">
+            <defs>
+              <linearGradient id="g-ticket" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8"></stop>
+                <stop offset="100%" stop-color="#6366f1"></stop>
+              </linearGradient>
+            </defs>
+
+            <!-- Box 1 -->
+            <rect x="10" y="40" width="130" height="52" rx="8" fill="url(#g-ticket)"></rect>
+            <text x="75" y="64" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">1. Регистрация</text>
+            <text x="75" y="80" fill="#e2e8f0" font-size="9" text-anchor="middle">Канал связи / Портал</text>
+            <path d="M 140 66 L 160 66" stroke="#64748b" stroke-width="2.5"></path>
+
+            <!-- Box 2 -->
+            <rect x="160" y="40" width="130" height="52" rx="8" fill="url(#g-ticket)"></rect>
+            <text x="225" y="64" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">2. Приоритезация</text>
+            <text x="225" y="80" fill="#e2e8f0" font-size="9" text-anchor="middle">Оценка влияния и SLA</text>
+            <path d="M 290 66 L 310 66" stroke="#64748b" stroke-width="2.5"></path>
+
+            <!-- Box 3 -->
+            <rect x="310" y="40" width="130" height="52" rx="8" fill="url(#g-ticket)"></rect>
+            <text x="375" y="64" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">3. Диагностика</text>
+            <text x="375" y="80" fill="#e2e8f0" font-size="9" text-anchor="middle">Поиск причин (L1/L2)</text>
+            <path d="M 440 66 L 460 66" stroke="#64748b" stroke-width="2.5"></path>
+
+            <!-- Box 4 -->
+            <rect x="460" y="40" width="130" height="52" rx="8" fill="url(#g-ticket)"></rect>
+            <text x="525" y="64" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">4. Устранение</text>
+            <text x="525" y="80" fill="#e2e8f0" font-size="9" text-anchor="middle">Решение / Патч</text>
+            <path d="M 590 66 L 610 66" stroke="#64748b" stroke-width="2.5"></path>
+
+            <!-- Box 5 -->
+            <rect x="610" y="40" width="140" height="52" rx="8" fill="#10b981"></rect>
+            <text x="680" y="64" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">5. Закрытие и КБ</text>
+            <text x="680" y="80" fill="#e2e8f0" font-size="9" text-anchor="middle">Фиксация в Базе Знаний</text>
+          </svg>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <h4 style="font-size: 1.1rem; color: var(--cyan);"><i class="fa-solid fa-book-bookmark"></i> Роль базы знаний (Knowledge Base):</h4>
+            <ul class="item-list">
+              <li>Каждый решённый инцидент описывается по шаблону: <strong>«Симптом $	o$ Причина $	o$ Пошаговое решение»</strong>.</li>
+              <li>При повторении проблемы инженер L1 находит готовую инструкцию за 30 секунд без повторного привлечения дорогих разработчиков.</li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h4 style="font-size: 1.1rem; color: var(--purple);"><i class="fa-solid fa-server"></i> Российские решения Service Desk (2026):</h4>
+            <ul class="item-list">
+              <li>В корпоративном секторе РФ стандарт де-факто — системы <strong>Naumen Service Desk, SimpleOne, ELMA365</strong>.</li>
+              <li>В среднем бизнесе и учебных заведениях применяются открытые платформы <strong>GLPI, Zammad, Redmine</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: ЗАДАЧА 1 - ОБНОВЛЕНИЕ СИСТЕМЫ (ПОНЯТИЕ И ВИДЫ) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-cloud-arrow-up"></i> Блок 2. Обновление и ТО ИС</div>
+          <h2 class="slide-title">Задача 1: Обновление информационной системы</h2>
+          <p class="slide-subtitle">Зачем регулярно обновлять софт и какие риски несут непродуманные апдейты в промышленной среде</p>
+        </div>
+
+        <div class="grid-3">
+          <!-- Card 1 -->
+          <div class="glass-card" style="border-top: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="badge badge-rose">Безопасность</span>
+              <i class="fa-solid fa-shield-virus" style="color: var(--rose); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Патчи уязвимостей</h3>
+            <p class="card-lead">Закрытие брешей и дыр в защите до того, как ими воспользуются злоумышленники.</p>
+            <ul class="item-list">
+              <li><strong>Zero-Day эксплойты:</strong> устранение критических уязвимостей в ядре Linux, сервере Nginx или библиотеках Spring/FastAPI.</li>
+              <li><strong>Обновление СУБД:</strong> установка минорных патчей PostgreSQL (например, 16.1 $	o$ 16.3), исправляющих утечки памяти и сбои блокировок.</li>
+              <li><strong>Сертификаты шифрования:</strong> обновление TLS-сертификатов ГОСТ/Web для предотвращения атак перехвата трафика (MitM).</li>
+            </ul>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div class="card-head">
+              <span class="badge badge-cyan">Нормативы</span>
+              <i class="fa-solid fa-scale-balanced" style="color: var(--cyan); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Законодательство РФ</h3>
+            <p class="card-lead">Обязательные корректировки логики под новые требования государственных регуляторов.</p>
+            <ul class="item-list">
+              <li><strong>Фискальные чеки (ФФД):</strong> обновление формата фискальных данных и драйверов онлайн-касс по требованиям ФНС России.</li>
+              <li><strong>Государственные системы:</strong> обновление протоколов обмена с ЕГАИС, Честный Знак, Меркурий, Госуслуги (ЕСИА).</li>
+              <li><strong>Персональные данные:</strong> адаптация криптографических модулей под актуальные приказы ФСТЭК и ФСБ России по 152-ФЗ.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="glass-card" style="border-top: 4px solid var(--emerald);">
+            <div class="card-head">
+              <span class="badge badge-emerald">Оптимизация</span>
+              <i class="fa-solid fa-gauge-high" style="color: var(--emerald); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Бизнес-функции и фичи</h3>
+            <p class="card-lead">Развитие функциональных возможностей и ускорение отклика системы для пользователей.</p>
+            <ul class="item-list">
+              <li><strong>Оптимизация производительности:</strong> ускорение обработки очередей заказов и сокращение времени формирования балансовых отчётов.</li>
+              <li><strong>Исправление интерфейсных ошибок:</strong> доработка неудобных экранных форм и устранение сбоев валидации полей ввода.</li>
+              <li><strong>Подключение новых модулей:</strong> интеграция модуля СБП (Система быстрых платежей) или новых логистических служб.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Главная заповедь системного инженера:</strong> НИКОГДА не накатывать обновления напрямую на работающий боевой сервер (Production) без предварительного тестирования на точной копии (Staging) и создания свежей резервной копии базы данных!
+          </div>
+          <span class="badge badge-rose" style="font-size: 0.9rem; white-space: nowrap;">Правило №1</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: РЕГЛАМЕНТ БЕЗОПАСНОГО ОБНОВЛЕНИЯ И СТЕНДЫ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-server"></i> Блок 2. Обновление и ТО ИС</div>
+          <h2 class="slide-title">Регламент безопасного обновления ПО</h2>
+          <p class="slide-subtitle">Трёхконтурная архитектура стендов: Разработка (Dev) → Тестирование (Staging) → Эксплуатация (Prod)</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="badge badge-cyan">Контур 1: Dev</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--cyan);">Development</span>
+            </div>
+            <h3 class="card-title">Среда разработки</h3>
+            <p class="card-lead">Локальные рабочие места программистов и стенды непрерывной интеграции (CI).</p>
+            <ul class="item-list">
+              <li>Написание нового исходного кода и юнит-тестирование.</li>
+              <li>Работа на синтетических тестовых базах данных без конфиденциальной информации.</li>
+              <li>Сборка Docker-образов микросервисов в репозитории GitLab/GitHub.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border: 2px solid var(--purple); background: rgba(192, 132, 252, 0.08);">
+            <div class="card-head">
+              <span class="badge badge-purple">Контур 2: Staging</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--purple);">Pre-Production</span>
+            </div>
+            <h3 class="card-title">Тестовый полигон</h3>
+            <p class="card-lead"><strong>Зона прямой ответственности инженера поддержки!</strong> Полный клон боевого сервера.</p>
+            <ul class="item-list">
+              <li>Прокатка миграций схем базы данных утилитами <code>Flyway</code> или <code>Alembic</code>.</li>
+              <li>Проверка совместимости новой версии с текущими драйверами и ОС Astra Linux.</li>
+              <li>Нагрузочное тестирование и контрольная сверка расчётов перед релизом.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border: 2px solid var(--emerald);">
+            <div class="card-head">
+              <span class="badge badge-emerald">Контур 3: Production</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--emerald);">Live-система</span>
+            </div>
+            <h3 class="card-title">Боевой рабочий контур</h3>
+            <p class="card-lead">Серверы, на которых работают реальные пользователи и хранятся коммерческие данные.</p>
+            <ul class="item-list">
+              <li>Обновление строго по регламенту в согласованное ночное технологическое окно.</li>
+              <li>Обязательное создание снимка (Snapshot) виртуальной машины перед началом работ.</li>
+              <li>Наличие готовой команды отката (Rollback) при непредвиденном падении тестов.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-head">
+            <span class="card-title"><i class="fa-solid fa-list-check" style="color: var(--cyan);"></i> Пошаговый чек-лист проведения обновления инженером поддержки:</span>
+            <span class="badge badge-cyan">SOP Регламент</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; font-size: 0.95rem;">
+            <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--cyan);">
+              <strong>1. Бэкап и снапшот:</strong> Создание полной резервной копии БД и конфигов.
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--purple);">
+              <strong>2. Миграция схемы:</strong> Применение SQL-скриптов изменения структуры таблиц.
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--amber);">
+              <strong>3. Запуск контейнеров:</strong> Развёртывание новой версии ПО в Docker/K8s.
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--emerald);">
+              <strong>4. Smoke-тестирование:</strong> Экспресс-проверка ключевых функций. При ошибках — Rollback.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: ЗАДАЧА 2 - ТЕХНИЧЕСКОЕ ОБСЛУЖИВАНИЕ (ТО) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-screwdriver-wrench"></i> Блок 2. Обновление и ТО ИС</div>
+          <h2 class="slide-title">Задача 2: Техническое обслуживание оборудования и серверов</h2>
+          <p class="slide-subtitle">Регламентные процедуры поддержания надёжности серверного оборудования и системного ПО</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-server" style="color: var(--cyan);"></i> Аппаратное ТО (Hardware Maintenance)</span>
+              <span class="badge badge-cyan">Железо</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>Контроль серверной инфраструктуры:</strong> поддержание температуры (+18...+22°C), влажности (40–55%) и исправности кондиционеров.</li>
+              <li><strong>Аудит источников бесперебойного питания (ИБП / UPS):</strong> регулярная проверка ёмкости аккумуляторов под нагрузкой и автозапуска резервного дизель-генератора.</li>
+              <li><strong>Диагностика накопителей (SMART / RAID):</strong> контроль износа ячеек SSD (TBW), выявление сбойных секторов HDD и замена дисков в RAID-массиве без остановки сервера (Hot-Swap).</li>
+              <li><strong>Профилактическая чистка:</strong> продувка систем охлаждения серверов от пыли и контроль оборотов вентиляторов.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-terminal" style="color: var(--purple);"></i> Системное ТО (Software Maintenance)</span>
+              <span class="badge badge-purple">Системное ПО</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>Ротация и сжатие логов:</strong> настройка сервиса <code>logrotate</code>, предотвращающая переполнение диска текстовыми журналами.</li>
+              <li><strong>Очистка временных файлов:</strong> плановое удаление файлов сессий, кэша отчётов и временных дампов из директорий <code>/tmp</code> и <code>/var/tmp</code>.</li>
+              <li><strong>Обслуживание базы данных (PostgreSQL Maintenance):</strong> регулярный запуск команды <code>VACUUM ANALYZE</code> для очистки «мертвых» строк (Dead Tuples) и перестроение индексов (<code>REINDEX</code>) для ускорения поиска.</li>
+              <li><strong>Контроль запущенных процессов:</strong> обнаружение «зависших» фоновых задач, потребляющих 100% процессора.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Практическое правило:</strong> Сервер никогда не должен заполняться накопителем более чем на <strong>85%</strong>. При превышении этого порога СУБД теряет возможность выполнять сортировки на диске и аварийно блокирует транзакции.
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: МОНИТОРИНГ ТЕЛЕМЕТРИИ В 2026 ГОДУ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-chart-line"></i> Блок 2. Обновление и ТО ИС</div>
+          <h2 class="slide-title">Мониторинг телеметрии и предиктивная аналитика</h2>
+          <p class="slide-subtitle">Как инженер узнаёт о проблемах за 30 минут до того, как систему заметят пользователи</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div class="card-head">
+              <span class="badge badge-cyan">Сбор метрик</span>
+              <i class="fa-solid fa-heart-pulse" style="color: var(--cyan); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Prometheus / Zabbix</h3>
+            <p class="card-lead">Непрерывный опрос серверов и сетевых узлов каждые 5–15 секунд.</p>
+            <ul class="item-list">
+              <li><strong>Аппаратные метрики:</strong> утилизация CPU, занятость RAM, свободное место на разделах дисков, температура чипсетов.</li>
+              <li><strong>Сетевые параметры:</strong> входящий/исходящий трафик, процент потерь пакетов (Packet Loss), доступность портов сервисов.</li>
+              <li><strong>Метрики приложений:</strong> число активных подключений к PostgreSQL, длина очереди очередей сообщений RabbitMQ/Kafka.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--amber);">
+            <div class="card-head">
+              <span class="badge badge-amber">Визуализация</span>
+              <i class="fa-solid fa-chart-pie" style="color: var(--amber); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Дашборды Grafana</h3>
+            <p class="card-lead">Наглядные экраны для дежурной смены инженеров поддержки.</p>
+            <ul class="item-list">
+              <li><strong>Графики задержек (Latency):</strong> время обработки пользовательского HTTP-запроса (норма: $\le 100$ мс).</li>
+              <li><strong>Карта ошибок (HTTP 5xx):</strong> моментальная вспышка красного графика при падении бэкенда.</li>
+              <li><strong>Сводные экраны филиалов:</strong> статус доступности оборудования во всех удалённых подразделениях организации.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="badge badge-rose">Оповещения</span>
+              <i class="fa-solid fa-bell" style="color: var(--rose); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Умные алерты (Alerting)</h3>
+            <p class="card-lead">Мгновенная доставка сигнала тревоги дежурному специалисту.</p>
+            <ul class="item-list">
+              <li><strong>Интеграция с мессенджерами:</strong> отправка уведомлений в закрытый Telegram-чат дежурных инженеров за 3 секунды.</li>
+              <li><strong>Градация важности:</strong> <em>Warning</em> (диск заполнен на 80%) vs <em>Disaster</em> (сервер базы данных не отвечает).</li>
+              <li><strong>Дедупликация:</strong> защита от лавины из 500 одинаковых сообщений при падении центрального свитча.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Тренды 2026 года (AIOps):</strong> Модели машинного обучения анализируют профиль нагрузки и предупреждают: «Через 3 часа диск <code>/var</code> будет переполнен при текущей скорости записи».
+          </div>
+          <span class="badge badge-cyan" style="font-size: 0.9rem;">ИИ в поддержке</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: УПРАВЛЕНИЕ ЛОГАМИ И АУДИТ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-clipboard-list"></i> Блок 2. Обновление и ТО ИС</div>
+          <h2 class="slide-title">Журналирование (Логирование) и аудит</h2>
+          <p class="slide-subtitle">Логи — «чёрный ящик» информационной системы при расследовании сбоев и инцидентов ИБ</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-file-lines" style="color: var(--cyan);"></i> Три главных уровня журналов в корпоративной ИС</span>
+              <span class="badge badge-cyan">Источники логов</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>Системные журналы ОС Linux (System Logs):</strong> сообщения ядра (<code>dmesg</code>), события служб <code>systemd</code>, ошибки драйверов дисков и контроллеров питания (<code>/var/log/syslog</code>, <code>/var/log/messages</code>).</li>
+              <li><strong>Журналы приложений и СУБД (Application Logs):</strong> ошибки синтаксиса SQL, медленные запросы в PostgreSQL (<code>slow_query.log</code>), стектрейсы необработанных исключений в Python/Java, журнал доступа веб-сервера Nginx (<code>access.log</code>, <code>error.log</code>).</li>
+              <li><strong>Журналы аудита безопасности (Audit Logs):</strong> фиксация фактов входа в систему, блокировок неверных паролей, изменений прав доступа администраторов и выгрузки конфиденциальных отчётов (согласно ГОСТ и требованиям регуляторов).</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-magnifying-glass" style="color: var(--purple);"></i> Централизованный сбор логов (Стек ELK / OpenSearch)</span>
+              <span class="badge badge-purple">Log Management</span>
+            </div>
+            <p class="card-lead">В реальной организации логи не читают вручную в блокноте на 50 разных серверах.</p>
+            <ul class="item-list">
+              <li><strong>Агенты сбора (Filebeat / Vector):</strong> собирают строки событий с каждого сервера и пересылают их в центральное хранилище.</li>
+              <li><strong>Хранилище и индексация (OpenSearch / Elasticsearch):</strong> мгновенный полнотекстовый поиск по миллиардам строк за считанные секунды.</li>
+              <li><strong>Пример разбора инцидента:</strong> Пользователь заявляет: <em>«База сама удалила документ №104»</em>. Специалист вбивает в поиск <code>doc_id=104 AND action=delete</code> и показывает точное время, IP-адрес и логин сотрудника, нажавшего кнопку удаления.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Юридический аспект:</strong> Логи аудита обладают доказательной силой при служебных расследованиях утечек данных и инцидентов информационной безопасности.
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: ЗАДАЧА 3 - ВОССТАНОВЛЕНИЕ ПОСЛЕ СБОЕВ И БЭКАПЫ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-shield-halved"></i> Блок 3. Восстановление данных</div>
+          <h2 class="slide-title">Задача 3: Восстановление данных после сбоев</h2>
+          <p class="slide-subtitle">Резервное копирование — единственная гарантия выживания бизнеса при катастрофах и атаках</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card" style="border-left: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-triangle-exclamation" style="color: var(--rose);"></i> От чего спасает резервное копирование?</span>
+              <span class="badge badge-rose">Статистика отказов</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>Аппаратные поломки (до 45% инцидентов):</strong> внезапный выход из строя контроллера SSD, деградация пластин HDD, сбой оперативной памяти сервера.</li>
+              <li><strong>Ошибки людей (до 35% инцидентов):</strong> случайное выполнение разрушительного запроса <code>DELETE FROM orders</code> без условия <code>WHERE</code>, удаление рабочей папки.</li>
+              <li><strong>Вирусы-вымогатели (Ransomware):</strong> вредоносные программы, шифрующие все доступные сетевые диски с требованием выкупа.</li>
+              <li><strong>Физические аварии:</strong> пожар в здании, прорыв труб отопления над серверной, кража оборудования.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-left: 4px solid var(--emerald);">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-database" style="color: var(--emerald);"></i> Два подхода к созданию копий баз данных</span>
+              <span class="badge badge-emerald">Технологии копирования</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>Холодное резервирование (Offline Backup):</strong>
+                <br>Полная остановка сервиса и СУБД, после чего копируются бинарные файлы данных. Даёт 100% согласованность, но требует остановки работы организации (простоя).
+              </li>
+              <li><strong>Горячее резервирование (Online Backup):</strong>
+                <br>Копирование работающей СУБД без прерывания пользователей с использованием механизма архивации журналов упреждающей записи транзакций (<strong>WAL — Write-Ahead Logging</strong> в PostgreSQL). Позволяет восстановить базу вплоть до конкретной секунды времени перед сбоем (<strong>PITR — Point-in-Time Recovery</strong>).
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Аксиома системного администратора:</strong> «Все системные администраторы делятся на две категории: те, кто ещё не делает бэкапы, и те, кто их УЖЕ делает».
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: ЗОЛОТОЕ ПРАВИЛО 3-2-1 И ТИПЫ БЭКАПОВ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-boxes-stacked"></i> Блок 3. Восстановление данных</div>
+          <h2 class="slide-title">Золотое правило бэкапа «3-2-1» и типы копий</h2>
+          <p class="slide-subtitle">Мировой стандарт надёжности хранения критически важных корпоративных данных</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="glass-card" style="text-align: center; border-top: 4px solid var(--cyan);">
+            <div style="font-family: 'Fira Code'; font-size: 2.5rem; color: var(--cyan); font-weight: 900;">3</div>
+            <h4 style="font-size: 1.15rem; color: #fff; margin: 4px 0 8px 0;">Экземпляра данных</h4>
+            <p style="font-size: 0.92rem; color: var(--text-2); line-height: 1.45;">
+              1 основной оригинал в промышленной базе данных + минимум <strong>2 независимые резервные копии</strong>. Вероятность одновременного отказа трёх копий стремится к нулю.
+            </p>
+          </div>
+
+          <div class="glass-card" style="text-align: center; border-top: 4px solid var(--purple);">
+            <div style="font-family: 'Fira Code'; font-size: 2.5rem; color: var(--purple); font-weight: 900;">2</div>
+            <h4 style="font-size: 1.15rem; color: #fff; margin: 4px 0 8px 0;">Разных типа носителей</h4>
+            <p style="font-size: 0.92rem; color: var(--text-2); line-height: 1.45;">
+              Хранить копии на технологически разных устройствах: например, локальный сетевой накопитель <strong>сервера (NAS)</strong> и изолированный <strong>внешний LTO-картридж / диск</strong>.
+            </p>
+          </div>
+
+          <div class="glass-card" style="text-align: center; border-top: 4px solid var(--rose);">
+            <div style="font-family: 'Fira Code'; font-size: 2.5rem; color: var(--rose); font-weight: 900;">1</div>
+            <h4 style="font-size: 1.15rem; color: #fff; margin: 4px 0 8px 0;">Вне офиса (Offsite)</h4>
+            <p style="font-size: 0.92rem; color: var(--text-2); line-height: 1.45;">
+              Как минимум одна копия обязана находиться в <strong>другом географическом здании</strong> или защищённом облачном хранилище (S3) на случай пожара или изъятия серверов.
+            </p>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-head">
+            <span class="card-title"><i class="fa-solid fa-layer-group" style="color: var(--cyan);"></i> Сравнение стратегий создания резервных копий:</span>
+            <span class="badge badge-cyan">Архитектура копий</span>
+          </div>
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Тип копирования</th>
+                <th>Что сохраняется в архив?</th>
+                <th>Скорость создания</th>
+                <th>Скорость восстановления</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Полный бэкап (Full)</strong></td>
+                <td>Вся база данных и все файлы системы целиком с нуля</td>
+                <td>Медленно (требует много часов и диска)</td>
+                <td><strong>Самое быстрое</strong> (разворачивается один файл)</td>
+              </tr>
+              <tr>
+                <td><strong>Инкрементный (Incremental)</strong></td>
+                <td>Только файлы/блоки, изменившиеся со времени <em>предыдущего бэкапа</em></td>
+                <td><strong>Очень быстро</strong> (занимает минимум места)</td>
+                <td>Медленно (нужен исходный Full + ВСЕ инкременты по цепочке)</td>
+              </tr>
+              <tr>
+                <td><strong>Дифференциальный</strong></td>
+                <td>Все изменения, накопившиеся с момента <em>последнего полного Full</em></td>
+                <td>Средняя скорость (размер растёт каждый день)</td>
+                <td>Быстро (требуется только Full + последний Diff-файл)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: МЕТРИКИ RPO И RTO -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-hourglass-half"></i> Блок 3. Восстановление данных</div>
+          <h2 class="slide-title">Метрики аварийного восстановления: RPO и RTO</h2>
+          <p class="slide-subtitle">Два основополагающих параметра в плане непрерывности бизнеса (Disaster Recovery Plan)</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- RPO -->
+          <div class="glass-card" style="border-top: 4px solid var(--amber);">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--amber);"></i> RPO (Recovery Point Objective)</span>
+              <span class="badge badge-amber">Потери данных</span>
+            </div>
+            <p class="card-lead"><strong>«Сколько данных во времени бизнесу допустимо потерять?»</strong></p>
+            <ul class="item-list">
+              <li>Показывает максимальный временной интервал между моментом аварии и временем создания последней рабочей резервной копии.</li>
+              <li><strong>Наглядный пример:</strong> Резервное копирование настроено раз в сутки ночью в 02:00. Сервер сгорел днём в 16:00. Вся работа сотрудников за 14 часов (заказы, платежи, проводки) безвозвратно утеряна. <strong>RPO = 24 часа.</strong></li>
+              <li><strong>Как уменьшить RPO:</strong> Включение непрерывной потоковой репликации (Streaming Replication) и бэкапа WAL-логов каждые 5 минут $	o$ RPO снижается до 5 минут.</li>
+            </ul>
+          </div>
+
+          <!-- RTO -->
+          <div class="glass-card" style="border-top: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-stopwatch" style="color: var(--rose);"></i> RTO (Recovery Time Objective)</span>
+              <span class="badge badge-rose">Время простоя</span>
+            </div>
+            <p class="card-lead"><strong>«Сколько времени система может лежать до возобновления работы?»</strong></p>
+            <ul class="item-list">
+              <li>Показывает период времени от момента наступления сбоя до полного возвращения системы в работоспособное состояние для пользователей.</li>
+              <li><strong>Наглядный пример:</strong> Вышел из строя центральный сервер. Инженер на складе нашёл запасной сервер, установил Astra Linux, развернул СУБД и скачал 500 ГБ бэкапа. Система заработала через 6 часов. <strong>RTO = 6 часов.</strong></li>
+              <li><strong>Как уменьшить RTO:</strong> Наличие горячего резервного сервера (Standby / Cluster), который автоматически перехватывает нагрузку за 30 секунд.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Парадокс Шрёдингера в бэкапах:</strong> «Состояние любого бэкапа неизвестно до тех пор, пока вы не попробовали развернуть его на тестовом стенде». Непроверенный бэкап равен отсутствию бэкапа!
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: ПЛАН ДЕЙСТВИЙ ПРИ АВАРИИ (RUNBOOK) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-fire-extinguisher"></i> Блок 3. Восстановление данных</div>
+          <h2 class="slide-title">Алгоритм действий специалиста при аварийном сбое</h2>
+          <p class="slide-subtitle">Пошаговый регламент реагирования инженера поддержки на критический инцидент (Incident Runbook)</p>
+        </div>
+
+        <div class="grid-4">
+          <div class="glass-card" style="border-top: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="badge badge-rose">Шаг 1</span>
+              <i class="fa-solid fa-ban" style="color: var(--rose); font-size: 1.2rem;"></i>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Локализация</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Остановить распространение ущерба.</p>
+            <ul class="item-list" style="font-size: 0.88rem;">
+              <li>Отключить сбойный узел от локальной сети.</li>
+              <li>Остановить запись в повреждённую БД, чтобы не усугубить порчу файлов.</li>
+              <li>Снять дамп текущего состояния памяти.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--amber);">
+            <div class="card-head">
+              <span class="badge badge-amber">Шаг 2</span>
+              <i class="fa-solid fa-bullhorn" style="color: var(--amber); font-size: 1.2rem;"></i>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Оповещение</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Информировать руководство и пользователей.</p>
+            <ul class="item-list" style="font-size: 0.88rem;">
+              <li>Вывесить заглушку: «Ведутся технические работы».</li>
+              <li>Уведомить координатора инцидентов и службу Service Desk.</li>
+              <li>Озвучить предварительный расчётный срок восстановления (RTO).</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div class="card-head">
+              <span class="badge badge-cyan">Шаг 3</span>
+              <i class="fa-solid fa-wrench" style="color: var(--cyan); font-size: 1.2rem;"></i>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Восстановление</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Поднятие сервиса из резервной копии.</p>
+            <ul class="item-list" style="font-size: 0.88rem;">
+              <li>Переключение трафика на резервный сервер (Failover).</li>
+              <li>Развёртывание последней валидной копии БД.</li>
+              <li>Запуск Smoke-тестов для подтверждения целостности логики.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--emerald);">
+            <div class="card-head">
+              <span class="badge badge-emerald">Шаг 4</span>
+              <i class="fa-solid fa-file-circle-check" style="color: var(--emerald); font-size: 1.2rem;"></i>
+            </div>
+            <h3 class="card-title" style="font-size: 1.15rem;">Разбор (Post-Mortem)</h3>
+            <p class="card-lead" style="font-size: 0.95rem;">Устранить первопричину навсегда.</p>
+            <ul class="item-list" style="font-size: 0.88rem;">
+              <li>Анализ первопричины сбоя (Root Cause Analysis).</li>
+              <li>Составление отчёта руководству без поиска «стрелочников».</li>
+              <li>Доработка системы мониторинга, чтобы инцидент не повторился.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Культура Blameless Post-Mortem:</strong> В современных IT-компаниях аварии разбираются без поиска виновных — цель разбора в том, чтобы изменить процессы и архитектуру системы так, чтобы даже при ошибке человека сервис не падал.
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: ЗАДАЧА 4 - НАСТРОЙКА ПРАВ И ДОСТУПА -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-user-lock"></i> Блок 4. Управление доступом</div>
+          <h2 class="slide-title">Задача 4: Настройка прав и управление доступом</h2>
+          <p class="slide-subtitle">Принцип наименьших привилегий (Least Privilege) и разграничение полномочий в ИС</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-shield-halved" style="color: var(--cyan);"></i> Базовые принципы разграничения полномочий</span>
+              <span class="badge badge-cyan">Информационная безопасность</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>Принцип наименьших привилегий (Least Privilege):</strong> Пользователю выдаются права ТОЛЬКО на те операции и таблицы, которые строго необходимы для выполнения его должностной инструкции. Кладовщику не нужны права на удаление базы клиентов.</li>
+              <li><strong>Персонификация ответственности:</strong> Запрет использования общих обезличенных учётных записей типа «admin» или «operator1». Каждый вход в систему должен быть привязан к конкретному человеку.</li>
+              <li><strong>Разделение полномочий (Segregation of Duties):</strong> Один и тот же пользователь не должен иметь права одновременно выставлять счёт и единолично подтверждать его оплату.</li>
+              <li><strong>Своевременный отзыв прав (Offboarding):</strong> При увольнении сотрудника его учётная запись блокируется во всех связанных сервисах в течение 15 минут.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-network-wired" style="color: var(--purple);"></i> Централизованные службы каталогов (SSO / LDAP)</span>
+              <span class="badge badge-purple">Единый вход</span>
+            </div>
+            <p class="card-lead">В организации из 500 сотрудников невозможно заводить учётную запись вручную в 20 отдельных базах.</p>
+            <ul class="item-list">
+              <li><strong>Служба каталогов:</strong> Единая база сотрудников, компьютеров и групп безопасности.</li>
+              <li><strong>Single Sign-On (SSO):</strong> Пользователь один раз вводит логин и пароль при включении рабочего ПК и автоматически получает доступ к почте, 1С, CRM и базам данных.</li>
+              <li><strong>Отечественный стек 2026:</strong> Массовый переход предприятий РФ с Microsoft Active Directory на российские сертифицированные решения: <strong>Astra ALD Pro</strong>, <strong>Ред АДМ</strong> и открытую систему <strong>FreeIPA</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Статистика утечек данных:</strong> Более <strong>60% внутренних утечек</strong> конфиденциальной информации происходят из-за избыточных прав доступа, выданных сотрудникам «на всякий случай».
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: МОДЕЛИ RBAC И ABAC -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-id-badge"></i> Блок 4. Управление доступом</div>
+          <h2 class="slide-title">Модели разграничения доступа: RBAC vs ABAC</h2>
+          <p class="slide-subtitle">Ролевое и атрибутивное управление доступом, построение матрицы прав CRUD</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- RBAC -->
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div class="card-head">
+              <span class="badge badge-cyan">RBAC</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--cyan);">Role-Based</span>
+            </div>
+            <h3 class="card-title">Ролевая модель доступа</h3>
+            <p class="card-lead">Права назначаются <strong>роли (должности)</strong>, а пользователи включаются в состав этой роли.</p>
+            <ul class="item-list">
+              <li><strong>Принцип:</strong> «Сотрудник Иванов принят на должность Бухгалтера $	o$ автоматически получил права роли Бухгалтер».</li>
+              <li><strong>Преимущество:</strong> Простота администрирования в типовых организациях со строгой иерархией.</li>
+            </ul>
+          </div>
+
+          <!-- ABAC -->
+          <div class="glass-card" style="border-top: 4px solid var(--purple);">
+            <div class="card-head">
+              <span class="badge badge-purple">ABAC</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--purple);">Attribute-Based</span>
+            </div>
+            <h3 class="card-title">Атрибутивная модель доступа</h3>
+            <p class="card-lead">Права вычисляются динамически на основе <strong>контекста и атрибутов</strong> запроса.</p>
+            <ul class="item-list">
+              <li><strong>Принцип:</strong> Учитываются атрибуты субъекта (отдел), объекта (гриф «секретно») и среды (IP-адрес, время суток).</li>
+              <li><strong>Пример:</strong> «Разрешить чтение ведомости бухгалтеру только с корпоративного ПК в рабочие часы с 09:00 до 18:00».</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-head">
+            <span class="card-title"><i class="fa-solid fa-table-cells" style="color: var(--cyan);"></i> Практический пример матрицы прав доступа (CRUD-матрица):</span>
+            <span class="badge badge-cyan">Матрица полномочий</span>
+          </div>
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Роль в системе</th>
+                <th>Создание (Create)</th>
+                <th>Просмотр (Read)</th>
+                <th>Редактирование (Update)</th>
+                <th>Удаление (Delete)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Студент / Гость</strong></td>
+                <td>❌ Запрещено</td>
+                <td>✅ Только личные оценки/заявки</td>
+                <td>❌ Запрещено</td>
+                <td>❌ Запрещено</td>
+              </tr>
+              <tr>
+                <td><strong>Преподаватель</strong></td>
+                <td>✅ Создание задания/теста</td>
+                <td>✅ Журнал своей группы</td>
+                <td>✅ Выставление баллов</td>
+                <td>❌ Запрещено</td>
+              </tr>
+              <tr>
+                <td><strong>Секретарь учебной части</strong></td>
+                <td>✅ Приказы о зачислении</td>
+                <td>✅ Вся база студентов</td>
+                <td>✅ Смена группы/статуса</td>
+                <td>❌ Запрещено (только архив)</td>
+              </tr>
+              <tr>
+                <td><strong>Администратор ИС</strong></td>
+                <td>✅ Настройка справочников</td>
+                <td>✅ Аудит логов и базы</td>
+                <td>✅ Конфигурация модулей</td>
+                <td>✅ По регламенту и согласованию</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: БЕЗОПАСНОСТЬ 2026: 2FA/MFA И ПАРОЛЬНАЯ ПОЛИТИКА -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-shield-virus"></i> Блок 4. Управление доступом</div>
+          <h2 class="slide-title">Современная аутентификация и защита учётных записей</h2>
+          <p class="slide-subtitle">Многофакторная аутентификация (MFA), аппаратные токены и стандарты защиты 2026 года</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="glass-card" style="border-top: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="badge badge-rose">Фактор 1: Знание</span>
+              <i class="fa-solid fa-key" style="color: var(--rose); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Что ты знаешь?</h3>
+            <p class="card-lead">Пароли, PIN-коды и секретные фразы.</p>
+            <ul class="item-list">
+              <li><strong>Парольная политика 2026:</strong> длина от 12 символов, запрет словарных слов и дат рождения.</li>
+              <li><strong>Проверка компрометации:</strong> автоматическая блокировка паролей, утёкших в общедоступные хакерские базы.</li>
+              <li><strong>Ограничение попыток:</strong> временная блокировка учётной записи после 5 неверных попыток ввода.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--cyan);">
+            <div class="card-head">
+              <span class="badge badge-cyan">Фактор 2: Владение</span>
+              <i class="fa-solid fa-mobile-screen" style="color: var(--cyan); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Что ты имеешь?</h3>
+            <p class="card-lead">Физические или программные устройства подтверждения (2FA).</p>
+            <ul class="item-list">
+              <li><strong>TOTP-генераторы:</strong> одноразовые 6-значные коды, сменяющиеся каждые 30 секунд (Яндекс Ключ, FreeOTP).</li>
+              <li><strong>Аппаратные USB-токены:</strong> защищённые смарт-карты и токены <strong>Рутокен, JaCarta</strong> с криптографическим чипом.</li>
+              <li><strong>Отказ от SMS:</strong> отказ от устаревших SMS-кодов из-за уязвимости к перехвату сим-карт (SIM-swap).</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-top: 4px solid var(--purple);">
+            <div class="card-head">
+              <span class="badge badge-purple">Фактор 3: Свойство</span>
+              <i class="fa-solid fa-fingerprint" style="color: var(--purple); font-size: 1.3rem;"></i>
+            </div>
+            <h3 class="card-title">Кто ты есть?</h3>
+            <p class="card-lead">Биометрические параметры человека и аппаратные ключи Passkeys.</p>
+            <ul class="item-list">
+              <li><strong>Биометрия:</strong> сканеры отпечатков пальцев TouchID, распознавание лица FaceID.</li>
+              <li><strong>Стандарт FIDO2 / WebAuthn:</strong> беспарольный вход с использованием асимметричной криптографии.</li>
+              <li><strong>Защита от фишинга:</strong> аппаратный ключ проверяет подлинность доменного имени сайта перед передачей подписи.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Обязательное требование регуляторов (ФСТЭК России):</strong> Доступ администраторов к серверной консоли по SSH, RDP или в панель управления СУБД без обязательного второго фактора (MFA) категорически запрещён!
+          </div>
+          <span class="badge badge-rose" style="font-size: 0.9rem;">Норма ИБ</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: СКВОЗНОЙ ПРАКТИЧЕСКИЙ КЕЙС (ЧАСТЬ 1) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-triangle-exclamation"></i> Блок 5. Практикум и разбор кейса</div>
+          <h2 class="slide-title">Сквозной кейс: Устранение аварии в ИС «Склад-Экспресс»</h2>
+          <p class="slide-subtitle">Хроника рабочего дня дежурного инженера сопровождения (Часть 1: Авария и поиск причин)</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card" style="border-left: 4px solid var(--rose);">
+            <div class="card-head">
+              <span class="badge badge-rose">09:15 УТРА</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--rose);">Инцидент P1: Critical</span>
+            </div>
+            <h3 class="card-title">Симптомы отказа сервиса</h3>
+            <p class="card-lead">В понедельник утром в Service Desk лавинообразно поступает 40 звонков от операторов 5 складов.</p>
+            <ul class="item-list">
+              <li><strong>Поведение интерфейса:</strong> При попытке провести накладную экран зависает на 30 секунд и выдаёт ошибку: <code>HTTP 500 Internal Server Error</code>.</li>
+              <li><strong>Показания мониторинга Grafana:</strong> Процесс PostgreSQL перегружает процессор сервера на 100%, время выполнения простых запросов подскочило с 20 мс до 45 секунд.</li>
+              <li><strong>Состояние дисковой подсистемы:</strong> Раздел <code>/var/log</code> заполнен на <strong>100.0%</strong> (0 байт свободного места).</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-left: 4px solid var(--amber);">
+            <div class="card-head">
+              <span class="badge badge-amber">09:25 УТРА</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--amber);">Root Cause Analysis</span>
+            </div>
+            <h3 class="card-title">Что показало расследование логов?</h3>
+            <p class="card-lead">Инженер подключается по запасному аварийному каналу SSH и анализирует события.</p>
+            <ul class="item-list">
+              <li><strong>Первопричина:</strong> Ночью в 01:30 стажёр запустил тестовый скрипт импорта номенклатуры с максимальным уровнем отладки (<code>DEBUG=TRUE</code>).</li>
+              <li><strong>Переполнение накопителя:</strong> Скрипт за ночь сгенерировал 120 гигабайт текстовых логов в один файл <code>/var/log/import.log</code>, забив весь диск сервера.</li>
+              <li><strong>Аварийная остановка СУБД:</strong> СУБД PostgreSQL не смогла записать обязательный журнал транзакций (WAL) на переполненный диск и перешла в режим аварийной защиты (Panic Mode), заблокировав все подключения.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Оценка ситуации:</strong> Остановка отгрузки складов грозит срывом поставок в 30 магазинов. Задействован план аварийного реагирования DRP. Счёт идёт на минуты.
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: СКВОЗНОЙ ПРАКТИЧЕСКИЙ КЕЙС (ЧАСТЬ 2) -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-wrench"></i> Блок 5. Практикум и разбор кейса</div>
+          <h2 class="slide-title">Сквозной кейс: Восстановление и модернизация регламентов</h2>
+          <p class="slide-subtitle">Хроника рабочего дня дежурного инженера сопровождения (Часть 2: Восстановление и предотвращение)</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card" style="border-left: 4px solid var(--emerald);">
+            <div class="card-head">
+              <span class="badge badge-emerald">09:40 УТРА</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--emerald);">Реанимация сервиса</span>
+            </div>
+            <h3 class="card-title">Хирургическое устранение сбоя</h3>
+            <ul class="item-list">
+              <li><strong>1. Освобождение диска:</strong> Инженер обнуляет гигантский файл стажёра командой <code>truncate -s 0 /var/log/import.log</code> (мгновенно освобождено 120 ГБ диска).</li>
+              <li><strong>2. Проверка целостности БД:</strong> Проверка отсутствия битых страниц в таблицах (файлы данных не пострадали благодаря защите WAL).</li>
+              <li><strong>3. Перезапуск СУБД:</strong> Выполнение <code>systemctl restart postgresql</code> $	o$ успешный старт сервиса за 40 секунд.</li>
+              <li><strong>4. Smoke-тестирование:</strong> Тестовое оформление накладной оператором склада $	o$ успешно.</li>
+              <li><strong>09:55 УТРА:</strong> Все склады вернулись к штатной работе. Общий простой составил 40 минут (SLA удержан).</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" style="border-left: 4px solid var(--purple);">
+            <div class="card-head">
+              <span class="badge badge-purple">11:00 УТРА</span>
+              <span style="font-family:'Fira Code'; font-size:0.85rem; color:var(--purple);">Модернизация</span>
+            </div>
+            <h3 class="card-title">Что инженер изменил в системе навсегда?</h3>
+            <ul class="item-list">
+              <li><strong>Настройка ротации логов (ТО):</strong> В утилите <code>logrotate</code> прописано жёсткое ограничение: ротация каждые 24 часа, максимальный размер файла 500 МБ, хранить не более 7 сжатых архивов.</li>
+              <li><strong>Предупреждающий мониторинг (Prometheus):</strong> Настроен алерт в Telegram дежурным: если диск заполнен на <strong>85%</strong>, бот бьёт тревогу задолго до исчерпания памяти.</li>
+              <li><strong>Настройка ролевого доступа (RBAC):</strong> Учётной записи стажёра запрещён запуск скриптов на боевом сервере (Production) — отныне тестирование разрешено только в контуре Staging!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <strong>Итог инцидента:</strong> Благодаря профессионализму инженера L2 система спасена, а проведённая модернизация гарантирует, что аналогичный сбой больше никогда не повторится.
+          </div>
+          <span class="badge badge-emerald" style="font-size: 0.9rem;">Инцидент закрыт</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: ИНТЕРАКТИВНЫЙ ЭКСПРЕСС-КОНТРОЛЬ (QUIZ) -->
+      <section class="slide">
+        <div class="slide-header" style="text-align: center;">
+          <div class="slide-category" style="justify-content: center;"><i class="fa-solid fa-circle-question"></i> Проверка знаний</div>
+          <h2 class="slide-title">Интерактивный экспресс-контроль для студентов</h2>
+          <p class="slide-subtitle">Закрепление ключевых понятий лекции по сопровождению информационной системы</p>
+        </div>
+
+        <div style="max-width: 860px; margin: 0 auto; width: 100%;">
+          <div class="glass-card" id="quizCard">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+              <span id="quizBadge" class="badge badge-cyan">Вопрос 1 из 3</span>
+              <span id="quizScoreText" style="font-family: 'Fira Code', monospace; font-size: 0.95rem; color: #fff;">Верно: 0</span>
+            </div>
+
+            <h3 id="quizQuestion" style="font-size: 1.25rem; margin: 16px 0; line-height: 1.45; color: #fff;">1. В чём заключается классическое золотое правило резервного копирования «3-2-1»?</h3>
+
+            <div id="quizOptionsContainer"><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">A.</span> <span>3 бэкапа в день на 2 рабочих компьютера за 1 минуту</span></div><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">B.</span> <span>3 копии данных на 2 разных носителях, 1 из которых хранится на удалённой площадке вне офиса</span></div><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">C.</span> <span>3 администратора подтверждают 2 пароля в 1 системе</span></div><div class="quiz-opt"><span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">D.</span> <span>Хранить данные на 3 флешках в течение 2 месяцев</span></div></div>
+
+            <div id="quizFeedback" style="display: none; padding: 14px 18px; border-radius: 8px; font-size: 0.95rem; line-height: 1.5;"></div>
+
+            <button id="quizNextBtn" class="btn-nav" style="display: none; width: auto; padding: 10px 24px; font-weight: 700; margin-top: 14px; background: var(--grad-cyan-indigo); border: none; border-radius: 8px; color: #fff;" onclick="nextQuizItem()">
+              Следующий вопрос <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: ИТОГИ ЛЕКЦИИ И СВЯЗЬ С ЛАБОРАТОРНОЙ -->
+      <section class="slide">
+        <div class="slide-header">
+          <div class="slide-category"><i class="fa-solid fa-flag-checkered"></i> Завершение занятия</div>
+          <h2 class="slide-title">Итоги темы и чек-лист готовности к практике</h2>
+          
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <div class="card-head">
+              <span class="card-title"><i class="fa-solid fa-list-check" style="color: var(--cyan);"></i> 4 ключевые задачи инженера поддержки:</span>
+              <span class="badge badge-cyan">Компетенции</span>
+            </div>
+            <ul class="item-list">
+              <li><strong>1. Безопасное обновление:</strong> Тестирование обновлений на Staging, проведение миграций БД без потери связей, готовность к откату (Rollback).</li>
+              <li><strong>2. Профилактическое ТО:</strong> Мониторинг телеметрии (CPU, RAM, Диск), ротация логов (<code>logrotate</code>), вакуумизация СУБД.</li>
+              <li><strong>3. Восстановление данных:</strong> Реализация правила бэкапа «3-2-1», удержание согласованных бизнесом метрик RPO и RTO.</li>
+              <li><strong>4. Контроль доступа:</strong> Построение матриц прав RBAC по принципу наименьших привилегий, интеграция с каталогами пользователей и обязательная 2FA.</li>
+            </ul>
+          </div>
+
+          
+        </div>
+
+        
+      </section>
+
+    </div>
+  </main>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill" style="width: 4.54545%;"></div>
+  </div>
+
+  <script>
+    // Slider Navigation Script
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const counterEl = document.getElementById('slideCounter');
+    const progressEl = document.getElementById('progressFill');
+
+    function updatePresentation() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      counterEl.textContent = `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      progressEl.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updatePresentation();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updatePresentation();
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentSlide = index;
+        updatePresentation();
+      }
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', nextSlide);
+    document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'Home') {
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides - 1);
+      }
+    });
+
+    // Fullscreen support
+    document.getElementById('fsBtn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    });
+
+    // Quiz Component Data & Logic
+    const quizItems = [
+      {
+        question: "1. В чём заключается классическое золотое правило резервного копирования «3-2-1»?",
+        options: [
+          "3 бэкапа в день на 2 рабочих компьютера за 1 минуту",
+          "3 копии данных на 2 разных носителях, 1 из которых хранится на удалённой площадке вне офиса",
+          "3 администратора подтверждают 2 пароля в 1 системе",
+          "Хранить данные на 3 флешках в течение 2 месяцев"
+        ],
+        correct: 1,
+        feedback: "Правильно! Правило «3-2-1» гарантирует сохранность информации даже при пожаре в здании или атаке вируса-шифровальщика."
+      },
+      {
+        question: "2. Что показывает метрика аварийного восстановления RTO (Recovery Time Objective)?",
+        options: [
+          "Объём потерянных данных в гигабайтах",
+          "Финансовую стоимость покупки новых серверов",
+          "Максимально допустимое время простоя системы от момента аварии до полного возвращения в строй",
+          "Количество звонков пользователей в службу Service Desk"
+        ],
+        correct: 2,
+        feedback: "Верно! RTO измеряется во времени (минуты/часы) и регламентирует скорость восстановления работоспособности сервиса."
+      },
+      {
+        question: "3. Какой фундаментальный принцип разграничения доступа является базовым в информационной безопасности?",
+        options: [
+          "Выдавать всем сотрудникам права администратора, чтобы не отвлекать IT-отдел",
+          "Принцип наименьших привилегий (доступ только к тем операциям, которые строго нужны для работы)",
+          "Использовать один общий пароль на весь отдел бухгалтерии для удобства",
+          "Менять пароли не чаще одного раза в 5 лет"
+        ],
+        correct: 1,
+        feedback: "Верно! Принцип наименьших привилегий (Least Privilege) предотвращает утечки данных и случайное удаление таблиц."
+      }
+    ];
+
+    let quizIdx = 0;
+    let quizScore = 0;
+
+    function renderQuizItem() {
+      const q = quizItems[quizIdx];
+      document.getElementById('quizBadge').textContent = `Вопрос ${quizIdx + 1} из ${quizItems.length}`;
+      document.getElementById('quizScoreText').textContent = `Верно: ${quizScore}`;
+      document.getElementById('quizQuestion').textContent = q.question;
+      
+      const optWrap = document.getElementById('quizOptionsContainer');
+      optWrap.innerHTML = '';
+      
+      const fb = document.getElementById('quizFeedback');
+      fb.style.display = 'none';
+      document.getElementById('quizNextBtn').style.display = 'none';
+
+      q.options.forEach((txt, i) => {
+        const btn = document.createElement('div');
+        btn.className = 'quiz-opt';
+        btn.innerHTML = `<span style="font-family:'Fira Code'; font-weight:700; color:var(--cyan);">${String.fromCharCode(65 + i)}.</span> <span>${txt}</span>`;
+        btn.onclick = () => selectQuizAnswer(i);
+        optWrap.appendChild(btn);
+      });
+    }
+
+    function selectQuizAnswer(chosen) {
+      const q = quizItems[quizIdx];
+      const allOpts = document.querySelectorAll('.quiz-opt');
+      
+      allOpts.forEach((btn, idx) => {
+        btn.onclick = null;
+        if (idx === q.correct) {
+          btn.classList.add('correct');
+        } else if (idx === chosen) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      const fb = document.getElementById('quizFeedback');
+      fb.style.display = 'block';
+
+      if (chosen === q.correct) {
+        quizScore++;
+        fb.style.background = 'rgba(16, 185, 129, 0.2)';
+        fb.style.border = '1px solid var(--emerald)';
+        fb.style.color = '#a7f3d0';
+        fb.innerHTML = `<strong><i class="fa-solid fa-check"></i> Отлично!</strong> ${q.feedback}`;
+      } else {
+        fb.style.background = 'rgba(244, 63, 94, 0.2)';
+        fb.style.border = '1px solid var(--rose)';
+        fb.style.color = '#fecdd3';
+        fb.innerHTML = `<strong><i class="fa-solid fa-xmark"></i> Неверно.</strong> Правильный ответ: ${String.fromCharCode(65 + q.correct)}. ${q.feedback}`;
+      }
+
+      document.getElementById('quizScoreText').textContent = `Верно: ${quizScore}`;
+
+      if (quizIdx < quizItems.length - 1) {
+        document.getElementById('quizNextBtn').style.display = 'inline-flex';
+      }
+    }
+
+    function nextQuizItem() {
+      if (quizIdx < quizItems.length - 1) {
+        quizIdx++;
+        renderQuizItem();
+      }
+    }
+
+    // Initialize
+    updatePresentation();
+    renderQuizItem();
+  </script>
+
+
+</body></html>
