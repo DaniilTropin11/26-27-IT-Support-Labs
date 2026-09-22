@@ -1,5 +1,19 @@
-Среда программирования Owen Logic Выполнить 1-9 задание
+1 лабораторная работа:
+Среда программирования Owen Logic Выполнить 1-9 задание 
 https://owen.ru/product/sreda_programmirovaniya_owen_logic
 
-Отчёт по лабораторной работе отправляете:
+Отчёт по лабораторной работе отправляете(ОБЯЗАТЕЛЬНО):
 https://docs.google.com/forms/d/e/1FAIpQLSfz3cJ8FpW7OHNj5mqn0Bj6SWHpuj-MAy4XAoUNqvmh12ZP_Q/viewform?usp=dialog
+
+
+
+
+2 лабораторная работа:
+10 задание, необходимо добавить счетчик наработки 10 сек, 10 включений 
+11 задание, сделать собственный стенд
+Пример реализации проекта(можете придумать свой): 
+https://owen.ru/project/vnedrenie_chastotnogo_upravleniya_na_nasosnyh_stanciyah_vodosnabzheniya_v_g_emanzhelinske
+
+Отчёт по лабораторной работе отправляете(ОБЯЗАТЕЛЬНО):
+https://docs.google.com/forms/d/e/1FAIpQLScjHhquOV4kdZwDUMGzZ06HZ9nBj6m8IDG9xg19b_GhwgWacA/viewform?usp=dialog
+
