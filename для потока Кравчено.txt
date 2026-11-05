@@ -6,8 +6,6 @@ https://owen.ru/product/sreda_programmirovaniya_owen_logic
 https://docs.google.com/forms/d/e/1FAIpQLSfz3cJ8FpW7OHNj5mqn0Bj6SWHpuj-MAy4XAoUNqvmh12ZP_Q/viewform?usp=dialog
 
 
-
-
 2 лабораторная работа:
 10 задание, необходимо добавить счетчик наработки 10 сек, 10 включений 
 11 задание, сделать собственный стенд
@@ -29,7 +27,14 @@ https://docs.google.com/forms/d/e/1FAIpQLSfEYHDO3OhxeoKW1tmPTe9lZlZQs1e6LoXmG44U
 
 4 лабораторная работа: 
 Выполнить задание пройденного на основе лекционного материала 
-G:\Студенческий общий ресурс\КравченкоОВ\Лекции 2026_2027\Лекция6 Среда CodeSysV2
+G:\Студенческий общий ресурс\КравченкоОВ\Лекции 2026_2027\Лекция5\ Видео 1,2 
 
 Отчёт по лабораторной работе отправляете в формате PDF (ОБЯЗАТЕЛЬНО):
 https://docs.google.com/forms/d/e/1FAIpQLSd1BZ8MGj0DtSMsP3R9nlTVaqkaSM-dug-FNgCl_ppoUIebQg/viewform?usp=publish-editor
+
+
+5 лабораторная работа: 
+Выполнить задание пройденного на основе лекционного материала 
+G:\Студенческий общий ресурс\КравченкоОВ\Лекции 2026_2027\Лекция6 Среда CodeSysV2
+
+Отчёт по лабораторной работе отправляете в формате PDF (ОБЯЗАТЕЛЬНО):
