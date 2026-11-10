@@ -8,10 +8,6 @@ https://docs.google.com/forms/d/e/1FAIpQLSfz3cJ8FpW7OHNj5mqn0Bj6SWHpuj-MAy4XAoUN
 
 2 лабораторная работа:
 10 задание, необходимо добавить счетчик наработки 10 сек, 10 включений 
-11 задание, сделать собственный стенд
-Пример реализации проекта(можете придумать свой): 
-https://owen.ru/project/vnedrenie_chastotnogo_upravleniya_na_nasosnyh_stanciyah_vodosnabzheniya_v_g_emanzhelinske
-
 Отчёт по лабораторной работе отправляете(ОБЯЗАТЕЛЬНО):
 https://docs.google.com/forms/d/e/1FAIpQLScjHhquOV4kdZwDUMGzZ06HZ9nBj6m8IDG9xg19b_GhwgWacA/viewform?usp=dialog
 
@@ -19,7 +15,9 @@ https://docs.google.com/forms/d/e/1FAIpQLScjHhquOV4kdZwDUMGzZ06HZ9nBj6m8IDG9xg19
 
 3 лабораторная работа: 
 Выполнить задание пройденного на основе лекционного материала 
-G:\Студенческий общий ресурс\КравченкоОВ\Лекции 2026_2027
+11 задание, сделать собственный стенд
+Пример реализации проекта(можете придумать свой): 
+https://owen.ru/project/vnedrenie_chastotnogo_upravleniya_na_nasosnyh_stanciyah_vodosnabzheniya_v_g_emanzhelinske
 
 Отчёт по лабораторной работе отправляете в формате PDF (ОБЯЗАТЕЛЬНО):
 https://docs.google.com/forms/d/e/1FAIpQLSfEYHDO3OhxeoKW1tmPTe9lZlZQs1e6LoXmG44UDOWhEH59zg/viewform?usp=publish-editor
@@ -33,8 +31,9 @@ G:\Студенческий общий ресурс\КравченкоОВ\Ле�
 https://docs.google.com/forms/d/e/1FAIpQLSd1BZ8MGj0DtSMsP3R9nlTVaqkaSM-dug-FNgCl_ppoUIebQg/viewform?usp=publish-editor
 
 
-5 лабораторная работа: 
+5 лабораторная работа (как 1-9 задания Owen Logic с визуализацией): 
 Выполнить задание пройденного на основе лекционного материала 
 G:\Студенческий общий ресурс\КравченкоОВ\Лекции 2026_2027\Лекция6 Среда CodeSysV2
 
 Отчёт по лабораторной работе отправляете в формате PDF (ОБЯЗАТЕЛЬНО):
+https://docs.google.com/forms/d/e/1FAIpQLScxXLNzWJK9yGoH8xoW9DDqNFql3F2PE-VgFKFva9I3PbF39Q/viewform?usp=dialog
